@@ -38,8 +38,8 @@ if ~ismember('GeometryID', opts.VariableNames)
         rowIdx = find(groeneveldLUT.ReferenceID == refID);
 
         % Find unique geometries 
-        [~,~,geomID] = unique(groeneveldLUT(rowIdx,["TubeDiameter", "HeatedLength"]));
-        groeneveldLUT(rowIdx,"GeometryID") = num2cell(geomID);
+        [~,~,geomIDs] = unique(groeneveldLUT(rowIdx,["TubeDiameter", "HeatedLength"]));
+        groeneveldLUT(rowIdx,"GeometryID") = num2cell(geomIDs);
 
     end
 
@@ -54,17 +54,50 @@ end
 %% Create Input Files
 refIDs = unique(groeneveldLUT.ReferenceID);
 
+% Make data folder
+dataFolder = fullfile('..','data');
+mkdir(dataFolder);
+
+% Make refsFolder
+refsFolder = fullfile(dataFolder, 'refs');
+mkdir(refsFolder);
+
 % Process each ReferenceID
     for i = 1:length(refIDs)
 
         % Reference ID
         refID = refIDs(i);
+
+        % Make refFolder
+        refFolder = fullfile(refsFolder,sprintf('%02u',refID));
+        mkdir(refFolder);
         
         % Find rows with ReferenceID == refID
         rowIdx = find(groeneveldLUT.ReferenceID == refID);
 
+        % Retrieve subset of LUT for refID
+        groeneveldLUT_subset = groeneveldLUT(rowIdx,:);
+
         % Find unique geometries 
-        [~,lineIdx,geomID] = unique(groeneveldLUT(rowIdx,"GeometryID"));
+        [~,lineIdx,geomIDs] = unique(groeneveldLUT_subset(:,"GeometryID"));
+
+        % Make geometryFolder
+        geometryFolder = fullfile(refFolder, 'geom');
+        mkdir(geometryFolder);
+
+        % Make geometry file for each geometry
+        for geomIdx = 1:length(geomIDs)
+            
+            % geomID
+            geomID = geomIDs(geomIdx);
+
+            % Retrieve entry from subset
+            groeneveldLUT_subset_entry = groeneveldLUT_subset(lineIdx(geomIdx),:);
+
+            % Generate geom file
+            
+
+        end
 
     end
 

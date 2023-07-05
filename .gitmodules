@@ -1,0 +1,5 @@
+[submodule "TwoPhaseSolver"]
+	path = TwoPhaseSolver
+	url = https://github.com/mfval/TwoPhaseSolver.git
+	branch = main
+
