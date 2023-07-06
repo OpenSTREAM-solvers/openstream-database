@@ -1,4 +1,4 @@
-
+addpath("TwoPhaseSolver")
 %% Load lookup table, gv for Groeneveld
 
 % Package path
@@ -6,7 +6,7 @@ packagePath = fullfile("+GroeneveldLUT");
 
 % src, data path
 srcPath = fullfile(packagePath,'+src');
-dataPath = fullfile(packagePath,'+data');
+inputsPath = fullfile(packagePath,'+inputs');
 
 % Set up the Import Options and import the data
 opts = detectImportOptions(fullfile(srcPath, "groeneveld_lut.csv"));
@@ -51,7 +51,7 @@ if ~ismember('GeometryID', opts.VariableNames)
     end
 
     % Save table as .mat
-    save(fullfile(srcPath,"groeneveld_lut.mat"),"groeneveldLUT", "-mat");
+    save(fullfile(packagePath,"groeneveld_lut.mat"),"groeneveldLUT", "-mat");
 
     % TODO: Save table as .csv with units
     
@@ -59,11 +59,16 @@ end
 
 
 %% Create Input Files
-import TwoPhaseSolver.Inputs.*
+
+% Prepare coolprop
+cp = CoolPropWrapper.CoolPropWrapper('Water');
+cp.outputMode = 'vec';
+
+% Unique refIDs
 refIDs = unique(groeneveldLUT.ReferenceID);
 
 % Make refsFolder
-refsFolder = fullfile(dataPath, 'refs');
+refsFolder = fullfile(inputsPath, 'refs');
 mkdir(refsFolder);
 
 % Process each ReferenceID
@@ -81,13 +86,16 @@ mkdir(refsFolder);
 
         % Retrieve subset of LUT for refID
         groeneveldLUT_subset = groeneveldLUT(rowIdx,:);
-
+        
+        %
+        % GEOMTRY FILES
+        %
         % Find unique geometries 
-        [~,lineIdx,geomIDs] = unique(groeneveldLUT_subset(:,"GeometryID"));
+        [geomIDs,lineIdx,~] = unique(groeneveldLUT_subset(:,"GeometryID"));
+        geomIDs = geomIDs.GeometryID;
 
-        % Make geometryFolder
-        geometryFolder = fullfile(refFolder, 'geom');
-        mkdir(geometryFolder);
+        % Make geometryFilePath
+        geometryFilePath = fullfile(refFolder, 'geom.inp');
 
         % Make geometry file for each geometry
         for geomIdx = 1:length(geomIDs)
@@ -96,14 +104,68 @@ mkdir(refsFolder);
             geomID = geomIDs(geomIdx);
 
             % Retrieve entry from subset
-            groeneveldLUT_subset_entry = groeneveldLUT_subset(lineIdx(geomIdx),:);
-
-            % Generate geom file
-            %TwoPhaseSolver.Inputs.Geometry.
+            entry = groeneveldLUT_subset(lineIdx(geomIdx),:);
             
+            flowArea = 0.25*pi.*entry.TubeDiameter.^2;
+            % Generate geom file
+            Inputs.Geometry.writeInputFile( ...
+                geometryFilePath, ...
+                entry.GeometryID, ...
+                "LENGTH", entry.HeatedLength, ...
+                "AREA",   flowArea, ...
+                "PERIM",  entry.TubeDiameter ...
+                );            
 
         end
+
+        %
+        % PROCESS EACH ENTRY
+        %
+
+        % file paths
+        modelFilePath = fullfile(refFolder, 'model.inp');
+        bcFilePath = @(id) fullfile(refFolder, sprintf('bc_%04u.inp',id));
+        optionsFilePath = fullfile(refFolder, 'options.inp');
+
+        for entryIdx = 1:height(groeneveldLUT_subset)
+            
+            % Retrieve entry from subset
+            entry = groeneveldLUT_subset(entryIdx,:);
+
+            % Model file
+            Inputs.Model.writeInputFile( ...
+                modelFilePath, ...
+                entry.Number, ...
+                "NNODES", 100, ...
+                "FLUID", "WATER", ...
+                "PROPERTIES", "PSYSTEM");
+
+            % Boundary conditions file
+            pressure = entry.Pressure .* 1000;
+            mflux = entry.MassFlux .* flowArea;
+            for timeStep = [0 3]
+                Inputs.BoundaryConditions.writeInputFile( ...
+                    bcFilePath(entry.Number), ...
+                    timeStep, ...
+                    pressure, ...       % kPa -> Pa
+                    cp.enthalpy('P',pressure,'T',c2k(entry.InletTemperature)), ...
+                    mflux ...
+                    );
+            end
+
+        end
+
+        % Create options file
+        Inputs.Options.writeInputFile( ...
+            optionsFilePath, ...
+            "STEADY");
 
     end
 
 
+%% HELPER FUNCTIONS
+
+% Celcius to Kelvin
+function k = c2k(c)
+    k = c+273.15;
+end
