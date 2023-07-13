@@ -72,7 +72,7 @@ refsFolder = fullfile(inputsPath, 'refs');
 mkdir(refsFolder);
 
 % Process each ReferenceID
-    for i = 1:length(refIDs)
+    for i = 1:1%length(refIDs)
 
         % Reference ID
         refID = refIDs(i);
