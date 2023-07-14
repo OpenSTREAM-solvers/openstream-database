@@ -22,7 +22,20 @@ classdef Dataset < handle
     properties
         entryID (1,1)
         dataset
+        caseFolderPaths
+
+        modelID
+        geometryID
+        optionsID
     end
+
+    properties (Dependent)
+        modelFilePath
+        optionsFilePath
+        geometryFilePath
+        bcFilePath
+    end
+
     
     methods (Access=protected)
         function obj = Dataset(entryID)
@@ -43,7 +56,6 @@ classdef Dataset < handle
             if isnumeric(obj.entryID) && obj.entryID == -1, return;  end
 
             % set the entryID
-            obj.validateEntry(entryID);
             obj.entryID = entryID;            
 
             % TODO: Otherwise, do something else
@@ -51,21 +63,31 @@ classdef Dataset < handle
 
         end
 
-        function caseFolderPath = makeCaseFolder(obj, datasetPath)
+        function makeCaseFolder(obj, datasetPath)
         %MAKECASEFOLDER Create case folder within the +inputs folder in a
         %dataset package.
         %   datasetPath:    package label (with +)
             if isnumeric(obj.entryID)
                 id = sprintf('case-%06u', obj.entryID);
             else
-                id = string(obj.entryID);
+                id = sprintf('case-%s', obj.entryID);
             end
-            caseFolderPath = fullfile(datasetPath,'+inputs',sprintf('case-%s', id));
-            [SUCCESS,MESSAGE,MESSAGEID] = mkdir(caseFolderPath);
-            if SUCCESS == 0
-                throw(MException(MESSAGEID, MESSAGE));
+            paths = {'inputs','results'};
+            for i = 1:2
+                caseFolderPaths.(paths{i}) = fullfile(datasetPath,sprintf('+%s',paths{i}),id);
+                [SUCCESS,MESSAGE,MESSAGEID] = mkdir(caseFolderPaths.(paths{i}));
+                if SUCCESS == 0
+                    throw(MException(MESSAGEID, sprintf('%s\n',MESSAGE,caseFolderPaths.(paths{i}))));
+                end
+
+                % Clean up inp files
+                delete(fullfile(caseFolderPaths.(paths{i}),'*.inp'));
+
             end
+            obj.caseFolderPaths = caseFolderPaths; %#ok<*PROPLC>
         end
+
+        
 
     end
 
@@ -76,6 +98,27 @@ classdef Dataset < handle
             obj.validateEntry(entryID);
             obj.entryID = entryID;
         end
+        
+        function modelFilePath = get.modelFilePath(obj)
+        %GET.MODELFILEPATH Generate model input file path
+            modelFilePath = fullfile(obj.caseFolderPaths.inputs,'model.inp');
+        end
+
+        function optionsFilePath = get.optionsFilePath(obj)
+        %GET.OPTIONSFILEPATH Generate options input file path
+            optionsFilePath = fullfile(obj.caseFolderPaths.inputs,'options.inp');
+        end
+
+        function geometryFilePath = get.geometryFilePath(obj)
+        %GET.GEOMTERYFILEPATH Generate geometry input file path
+            geometryFilePath = fullfile(obj.caseFolderPaths.inputs,'geom.inp');
+        end
+
+        function bcFilePath = get.bcFilePath(obj)
+        %GET.BCFILEPATH Generate boundary conditions input file path
+            bcFilePath = fullfile(obj.caseFolderPaths.inputs,'bc.inp');
+        end
+
     end
 
     methods (Abstract)
@@ -93,6 +136,10 @@ classdef Dataset < handle
         validateEntry(obj, entryID)
         %VALIDATEENTRY Check if an entryID is valid
         %   Throws error if entryID is invalid
+
+        runCase(obj)
+        %RUNCASE Run case
+        %
 
     end
 

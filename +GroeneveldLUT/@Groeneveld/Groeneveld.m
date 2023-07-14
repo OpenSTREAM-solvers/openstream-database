@@ -1,30 +1,41 @@
 classdef Groeneveld < Dataset
 
-   properties
-       entryID
-   end
+   
 
    methods
-       
-        function preprocessor(obj)
+
+        preprocessor(obj)
         %PREPROCESSOR Prepares dataset for further processing
-        %   Detailed explanation goes here
-        end
-        function makeInputFiles(obj)
+
+        makeInputFiles(obj)
         %MAKEINPUTFILES Creates input files on-demand
-        end
+
+        runCase(obj)
+        %RUNCASE Run case
+        
 
         function listEntries(obj)
         %LISTENTRIES Lists all the possible entries
+            
+            % Display dataset
+            obj.dataset
 
         end
         
         function validateEntry(obj, entryID)
         %VALIDATEENTRY Check if an entryID is valid
         %   Throws error if entryID is invalid
-
+            if ~isnumeric(entryID)
+                throw(MException( ...
+                    'InvalidEntryIDError:NonNumericID', ...
+                    '%s is not a numeric value.', string(entryID)))
+            elseif entryID <= 0 || entryID >height(obj.dataset)
+                throw(MException( ...
+                    'InvalidEntryIDError:IDOutOfBounds', ...
+                    'ID needs to be between 1 and %u. %u given.', ...
+                        height(obj.dataset), entryID));
+            end
         end
-
 
    end
 
