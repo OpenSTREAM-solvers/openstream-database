@@ -20,13 +20,18 @@ classdef Dataset < handle
     %       
     
     properties
-        entryID (1,1)
+        entryID (1,:)       = -1
         dataset
         caseFolderPaths
 
         modelID
         geometryID
         optionsID
+    end
+
+    properties (SetAccess = protected)
+        results     = []
+        misc
     end
 
     properties (Dependent)
@@ -53,7 +58,7 @@ classdef Dataset < handle
             obj.preprocessor();
 
             % return if entryID == -1
-            if isnumeric(obj.entryID) && obj.entryID == -1, return;  end
+            if isnumeric(entryID) && entryID == -1, return;  end
 
             % set the entryID
             obj.entryID = entryID;            
@@ -87,7 +92,12 @@ classdef Dataset < handle
             obj.caseFolderPaths = caseFolderPaths; %#ok<*PROPLC>
         end
 
-        
+        function methodNotImplemented(obj)
+            st = dbstack;
+            throwAsCaller(MException( ...
+                'Dataset:MethodNotImplmentedError', ...
+                '%s is not implemented', st(end).name));
+        end
 
     end
 
@@ -121,25 +131,47 @@ classdef Dataset < handle
 
     end
 
-    methods (Abstract)
+    methods
 
-        preprocessor(obj)
+        function preprocessor(obj)
         %PREPROCESSOR Prepares dataset for further processing
         %   Detailed explanation goes here
+            obj.methodNotImplemented();
+        end
 
-        makeInputFiles(obj)
+        function makeInputFiles(obj)
         %MAKEINPUTFILES Creates input files on-demand
+            obj.methodNotImplemented();
+        end
 
-        listEntries(obj)
+        function listEntries(obj)
         %LISTENTRIES Lists all the possible entries
+            obj.methodNotImplemented();
+        end
 
-        validateEntry(obj, entryID)
+        function listEntryIDs(obj)
+        %LISTENTRYIDS Prepares dataset for further processing
+        %   Detailed explanation goes here
+            obj.methodNotImplemented();
+        end
+
+        function validateEntry(obj, entryID)
         %VALIDATEENTRY Check if an entryID is valid
         %   Throws error if entryID is invalid
-
-        runCase(obj)
+            obj.methodNotImplemented();
+        end
+        
+        function runCase(obj)
         %RUNCASE Run case
         %
+            obj.methodNotImplemented();
+        end
+
+        function plotResults(obj)
+        %PLOTRESULTS Plots results from runCase
+        %
+            obj.methodNotImplemented();
+        end
 
     end
 
