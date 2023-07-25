@@ -14,11 +14,11 @@ classdef Groeneveld < Dataset
         %RUNCASE Run case
         
 
-        function listEntries(obj)
+        function entries = listEntries(obj)
         %LISTENTRIES Lists all the possible entries
             
             % Display dataset
-            obj.dataset
+            entries = obj.dataset;
 
         end
         
