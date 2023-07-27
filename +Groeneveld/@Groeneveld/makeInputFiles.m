@@ -7,7 +7,7 @@ function makeInputFiles(obj)
     cp.outputMode = 'vec';
   
     % Make caseFolder
-    obj.makeCaseFolder('+GroeneveldLUT');
+    obj.makeCaseFolder('+Groeneveld');
     caseFolder = obj.caseFolderPaths.inputs;
     
     % Retrieve entry with entryID
