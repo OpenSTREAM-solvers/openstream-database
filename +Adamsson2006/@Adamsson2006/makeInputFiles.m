@@ -11,11 +11,11 @@ function makeInputFiles(obj)
     caseFolder = obj.caseFolderPaths.inputs;
     
     % Retrieve entry with entryID
-    entry = obj.dataset(obj.dataset.TestID == obj.entryID,:);
+    entry = obj.dataset(strcmp(obj.dataset.TestID, obj.entryID),:);
 
     % Retrieve heating type, wmesh, wpower
     heatType = regexp(obj.entryID,'(\w+)_M','tokens');
-    heatType = heatType{1};
+    heatType = heatType{1}{1};
     wmesh = obj.misc.wpowerLUT.WMESH;
     wpower = obj.misc.wpowerLUT.(heatType);
 
