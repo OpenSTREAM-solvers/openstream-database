@@ -7,11 +7,17 @@ classdef Groeneveld < Dataset
         preprocessor(obj)
         %PREPROCESSOR Prepares dataset for further processing
 
-        makeInputFiles(obj)
+        makeInputFiles(obj, inputOpts)
         %MAKEINPUTFILES Creates input files on-demand
 
         runCase(obj)
         %RUNCASE Run case
+
+        powerIteration(obj)
+        %POWERITERATION Iterate heat flux boundary conditions to reach
+        %criteria. 
+        % TODO: implement after completion of a more robust of
+        % makeInputFiles method that takes custom parameters.
         
 
         function entries = listEntries(obj)

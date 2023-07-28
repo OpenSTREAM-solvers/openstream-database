@@ -139,7 +139,7 @@ classdef Dataset < handle
             obj.methodNotImplemented();
         end
 
-        function makeInputFiles(obj)
+        function makeInputFiles(obj, inputOpts)
         %MAKEINPUTFILES Creates input files on-demand
             obj.methodNotImplemented();
         end
@@ -175,6 +175,56 @@ classdef Dataset < handle
 
     end
 
+    methods(Static)
+
+        function options = inputOptions()
+        %INPUTOPTIONS Struct to be passed into obj.makeInputFiles(...)
+        %   This method defines a standardized structure to pass
+        %   user-defined input-file options.
+        %
+        %   TODO: a more robust method should be used that use the 
+        %         code-suggestion framework in MATLAB.
+
+            options = struct( ...
+                        'geometry', struct(), ...
+                        'model', struct(), ...
+                        'options', struct(), ...
+                        'boundaryConditions', struct() ...
+                            );
+        end
+
+        function cellPair = inputOptions2Cell(inputOpt)
+        %INPUTOPTIONS2CELL Convert struct to name-value pairs in a cell.
+        %   Details.
+
+            % List of fields on input
+            optionNames = fieldnames(inputOpt);
+    
+            % Build output cell
+            cellPair = {};
+            for i = 1:length(optionNames)
+                
+                % Option name
+                optionName = optionNames{i};
+    
+                % Ignore if option name is ID
+                switch optionName
+                    case 'ID'
+                        warning('ID (%s) cannot be overwritten.', optionName);
+                        continue;
+                end
+    
+                % Insert option name
+                cellPair{end+1} = optionName;
+    
+                % Insert option value
+                cellPair{end+1} = inputOpt.(optionName);
+                
+            end
+
+        end
+
+    end
 
 end
 
