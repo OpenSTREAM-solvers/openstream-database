@@ -1,22 +1,27 @@
-function runCase(obj)
+function runCase(gr, opts)
 %RUNCASE Run Case
 %   Detailed explanation goes here
+arguments
+   gr
+   opts.inputSetOpts = {'overwriteSessionFiles', true, ...
+                        'LOGMODE'              , 'BOTH'};                   % Options for InputSet
+end
 
     % Create input files if folder paths are empty
-    if isempty(obj.caseFolderPaths)
-        obj.makeInputFiles();
+    if isempty(gr.caseFolderPaths)
+        gr.makeInputFiles();
     end
 
     % Create InputSet
     inputSet = Inputs.InputSet( ...
-        modelFilePath         = obj.modelFilePath,      modelID    = obj.modelID, ...
-        optionsFilePath       = obj.optionsFilePath,    optionsID  = obj.optionsID, ...
-        geometryFilePath      = obj.geometryFilePath,   geometryID = obj.geometryID, ...
-        bcFilePath            = obj.bcFilePath, ...
-        sessionParentDir      = obj.caseFolderPaths.results, ...
-        overwriteSessionFiles = true, ...
-        LOGMODE               = 'BOTH');
-    obj.misc.inputSet = inputSet;
+        opts.inputSetOpts{:}, ...
+        modelFilePath         = gr.modelFilePath,      modelID    = gr.modelID, ...
+        optionsFilePath       = gr.optionsFilePath,    optionsID  = gr.optionsID, ...
+        geometryFilePath      = gr.geometryFilePath,   geometryID = gr.geometryID, ...
+        bcFilePath            = gr.bcFilePath, ...
+        sessionParentDir      = gr.caseFolderPaths.results ...
+        );
+    gr.misc.inputSet = inputSet;
 
     % Initiate Three-field solver
     tfSolver = Solvers.ThreeField.ThreeFieldSolver(inputSet);
@@ -30,6 +35,6 @@ function runCase(obj)
     tfSolver.saveResults(saveFormat="MAT");
 
     % Return results
-    obj.results = tfSolver;
+    gr.results = tfSolver;
 
 end

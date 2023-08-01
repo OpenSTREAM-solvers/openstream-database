@@ -1,5 +1,5 @@
 
-function preprocessor(obj)
+function preprocessor(gr)
 %PREPROCESSOR Prepares original dataset for further processing
 
     % Check if .mat file exists
@@ -9,7 +9,7 @@ function preprocessor(obj)
     
     % Simply load the dataset
     dataset = load("+Groeneveld\+src\groeneveld_lut.mat","-mat");
-    obj.dataset = dataset.groeneveldLUT;
+    gr.dataset = dataset.groeneveldLUT;
 
 
 end

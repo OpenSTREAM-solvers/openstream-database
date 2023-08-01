@@ -1,20 +1,20 @@
-function makeInputFiles(obj, inputOpts)
+function makeInputFiles(gr, inputOpts)
 %MAKEINPUTFILES Create Input Files
 %   Detailed explanation goes here
     arguments
-        obj
-        inputOpts = obj.inputOptions()
+        gr
+        inputOpts = gr.inputOptions()
     end
     % Prepare coolprop
     cp = CoolPropWrapper.CoolPropWrapper('Water');
     cp.outputMode = 'vec';
   
     % Make caseFolder
-    obj.makeCaseFolder('+Groeneveld');
-    caseFolder = obj.caseFolderPaths.inputs;
+    gr.makeCaseFolder('+Groeneveld');
+    caseFolder = gr.caseFolderPaths.inputs;
     
     % Retrieve entry with entryID
-    entry = obj.dataset(obj.dataset.Number == obj.entryID,:);
+    entry = gr.dataset(gr.dataset.Number == gr.entryID,:);
 
     % TODO: check entry size, error if more than 1 is found
     % ...
@@ -24,15 +24,15 @@ function makeInputFiles(obj, inputOpts)
     heatedArea = pi.*entry.TubeDiameter.*entry.HeatedLength;
 
     % Geometry file
-    obj.geometryID = string(entry.GeometryID);
+    gr.geometryID = string(entry.GeometryID);
     geomOptions = inputOpts.geometry;
     geomOptions = setDefaultOpt(geomOptions, 'LENGTH', entry.HeatedLength);
     geomOptions = setDefaultOpt(geomOptions, 'AREA', flowArea);
     geomOptions = setDefaultOpt(geomOptions, 'PERIM', entry.TubeDiameter);
-    geomOptions = obj.inputOptions2Cell(geomOptions);
+    geomOptions = gr.inputOptions2Cell(geomOptions);
     Inputs.Geometry.writeInputFile( ...
-        obj.geometryFilePath, ...
-        obj.geometryID, ...
+        gr.geometryFilePath, ...
+        gr.geometryID, ...
         geomOptions{:} ...
         );
         % "LENGTH", LENGTH, ...
@@ -41,16 +41,16 @@ function makeInputFiles(obj, inputOpts)
         % );            
     
     % Model file
-    obj.modelID = string(obj.entryID);
+    gr.modelID = string(gr.entryID);
     modelOptions = inputOpts.model;
     modelOptions = setDefaultOpt(modelOptions, 'NNODES', 100);
     modelOptions = setDefaultOpt(modelOptions, 'FLUID', "WATER");
     modelOptions = setDefaultOpt(modelOptions, 'PROPERTIES', "SATURATED");
     modelOptions = setDefaultOpt(modelOptions, 'MOMENTFILM', "ALGEBRAIC");
-    modelOptions = obj.inputOptions2Cell(modelOptions);
+    modelOptions = gr.inputOptions2Cell(modelOptions);
     Inputs.Model.writeInputFile( ...
-        obj.modelFilePath, ...
-        obj.modelID, ...
+        gr.modelFilePath, ...
+        gr.modelID, ...
         modelOptions{:} ...
         );
         % "NNODES", NNODES, ...
@@ -76,11 +76,11 @@ function makeInputFiles(obj, inputOpts)
     bcOptions = setDefaultOpt(bcOptions, 'POWER', POWER);
     bcOptions = setDefaultOpt(bcOptions, 'WMESH', WMESH);
     bcOptions = setDefaultOpt(bcOptions, 'WPOWER', WPOWER);
-    bcOptions = obj.inputOptions2Cell(bcOptions);
+    bcOptions = gr.inputOptions2Cell(bcOptions);
 
     for time = TIME
         Inputs.BoundaryConditions.writeInputFile( ...
-            obj.bcFilePath, ...
+            gr.bcFilePath, ...
             time, ...                  % Zero-transient by default
             PRESSURE, ...       
             HIN, ...
@@ -94,13 +94,13 @@ function makeInputFiles(obj, inputOpts)
     end
 
     % Options file
-    obj.optionsID = "STEADY";
+    gr.optionsID = "STEADY";
     optionsOptions = inputOpts.options;
-    optionsOptions = obj.inputOptions2Cell(optionsOptions);
+    optionsOptions = gr.inputOptions2Cell(optionsOptions);
 
     Inputs.Options.writeInputFile( ...
-        obj.optionsFilePath, ...
-        obj.optionsID,...
+        gr.optionsFilePath, ...
+        gr.optionsID,...
         optionsOptions{:});
     
     %% HELPER FUNCTIONS
