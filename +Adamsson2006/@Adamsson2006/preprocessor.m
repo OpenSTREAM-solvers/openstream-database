@@ -1,5 +1,4 @@
-
-function preprocessor(obj)
+function preprocessor(adam)
 %PREPROCESSOR Prepares original dataset for further processing
 
     % Check if .mat file exists
@@ -9,11 +8,11 @@ function preprocessor(obj)
     
     % Simply load the dataset
     dataset = load("+Adamsson2006\+src\flowConditions.mat","-mat");
-    obj.dataset = dataset.flowConditions;
+    adam.dataset = dataset.flowConditions;
 
     % Load wpower data
     wpower = load("+Adamsson2006\+src\wpower.mat","-mat");
-    obj.misc.wpowerLUT = wpower.wpower;
+    adam.misc.wpowerLUT = wpower.wpower;
 
 
 end

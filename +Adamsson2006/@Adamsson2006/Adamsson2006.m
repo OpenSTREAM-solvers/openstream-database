@@ -2,46 +2,58 @@ classdef Adamsson2006 < Dataset
 
     methods
 
-        preprocessor(obj)
+        preprocessor(adam)
         %PREPROCESSOR Prepares dataset for further processing
 
-        makeInputFiles(obj)
+        makeInputFiles(adam)
         %MAKEINPUTFILES Creates input files on-demand
 
-        runCase(obj)
+        runCase(adam, opts)
         %RUNCASE Run case
 
-        plotResults(obj)
+        plotResults(adam)
         %PLOTRESULTS
 
-        function listEntries(obj)
+        function listEntries(adam)
         %LISTENTRIES Lists all the possible entries
             
             % Display dataset
-            obj.dataset
+            adam.dataset
 
         end
 
-        function entryIDs = listEntryIDs(obj)
+        function entryIDs = listEntryIDs(adam)
         %LISTENTRYIDS Lists all the possible entry IDs
 
             % Return dataset.TestID
-            entryIDs = obj.dataset.TestID;
+            entryIDs = adam.dataset.TestID;
         end
         
-        function validateEntry(obj, entryID)
+        function validateEntry(adam, entryID)
         %VALIDATEENTRY Check if an entryID is valid
         %   Throws error if entryID is invalid
             if isnumeric(entryID)
                 throw(MException( ...
                     'InvalidEntryIDError:NonNumericID', ...
                     '%s is not a valid string.', string(entryID)))
-            elseif ~ismember(entryID, obj.dataset.TestID)
+            elseif ~ismember(entryID, adam.dataset.TestID)
                 throw(MException( ...
                     'InvalidEntryIDError:IDOutOfBounds', ...
                     'ID, %s, not found.', entryID));
             end
         end
+
+    end
+
+    methods (Access=protected)
+
+       function setEntryData(adam)
+        %SETENTRYDATA Sets the entryData property using entryID
+
+            % Retrieve entry data from dataset table
+            adam.entryData = adam.dataset(strcmp(adam.dataset.TestID,adam.entryID),:);
+
+       end
 
    end
 

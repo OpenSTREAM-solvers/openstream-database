@@ -1,10 +1,10 @@
-function plotResults(obj)
+function plotResults(adam)
 %PLOTRESULTS Summary of this function goes here
 %   Detailed explanation goes here
 
-    tfSolver = obj.results;
+    tfSolver = adam.results;
     mixSolver = tfSolver.mixSolver;
-    bc = obj.misc.inputSet.bc;
+    bc = adam.misc.inputSet.bc;
     
     % Plot solved axial
     mixSolver.plotz(1);
