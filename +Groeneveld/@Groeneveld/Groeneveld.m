@@ -19,7 +19,6 @@ classdef Groeneveld < Dataset
         % TODO: implement after completion of a more robust of
         % makeInputFiles method that takes custom parameters.
         
-
         function entries = listEntries(gr)
         %LISTENTRIES Lists all the possible entries
             
@@ -42,6 +41,18 @@ classdef Groeneveld < Dataset
                         height(gr.dataset), entryID));
             end
         end
+
+   end
+
+   methods (Access=protected)
+
+       function setEntryData(gr)
+        %SETENTRYDATA Sets the entryData property using entryID
+
+            % Retrieve entry data from dataset table
+            gr.entryData = gr.dataset(gr.entryID,:);
+
+       end
 
    end
 
