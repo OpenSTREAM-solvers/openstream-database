@@ -30,6 +30,7 @@ classdef Dataset < handle
     end
 
     properties (SetAccess = protected)
+        entryData
         results     = []
         misc
     end
@@ -101,12 +102,20 @@ classdef Dataset < handle
 
     end
 
+    methods (Abstract, Access=protected)
+        setEntryData
+    end
+
     methods
         function set.entryID(obj, entryID)
         %SET.ENTRYID Validates and sets entryID
         %
             obj.validateEntry(entryID);
             obj.entryID = entryID;
+
+            % Set entryData
+            obj.setEntryData();
+
         end
         
         function modelFilePath = get.modelFilePath(obj)
@@ -161,7 +170,7 @@ classdef Dataset < handle
             obj.methodNotImplemented();
         end
         
-        function runCase(obj)
+        function runCase(obj, opts)
         %RUNCASE Run case
         %
             obj.methodNotImplemented();
