@@ -13,9 +13,16 @@ end
     % Create the structure for custom properties
     inpOpts = gr.inputOptions();
     
-    inpOpts.model.MOMENTFILM = 'ALGEBRAIC';    % change the MOMENTFILM model to ALGEBRAIC
-    inpOpts.model.POSFILM = 0; 
-    inpOpts.boundaryConditions.TIME = [0 3];   % change the time steps to [0 3]
+    % Run zero-transient using SS time march
+    inpOpts.options.SSTSTEP = 1;
+    inpOpts.options.SSMAXITER = 100;
+    inpOpts.options.SSCONVW = 1E-3;
+    inpOpts.options.SSCONVP = 1E-1;
+    inpOpts.options.SSCONVH = 1E-1;
+
+    inpOpts.model.MOMENTFILM = 'ALGEBRAIC';     % change the MOMENTFILM model to ALGEBRAIC
+    inpOpts.model.POSFILM = 0;              % allow negative film 
+    inpOpts.boundaryConditions.TIME = 0;        % zero-transient
     newPower =   (gr.entryData.CHF) * 1000 * (gr.entryData.HeatedLength) *pi*(gr.entryData.TubeDiameter) ;
     inpOpts.boundaryConditions.POWER = newPower;
     
@@ -23,7 +30,7 @@ end
     gr.makeInputFiles(inpOpts);
         
     % Run case
-    gr.runCase('inputSetOpts', opts.inputSetOpts);
+    gr.runCase('inputSetOpts', opts.inputSetOpts, 'saveResultsToFile', false);
     
     %Iterate power
     itr = 0;
@@ -54,7 +61,7 @@ end
         gr.makeInputFiles(inpOpts);
         
         %Run new case
-        gr.runCase('inputSetOpts', opts.inputSetOpts);
+        gr.runCase('inputSetOpts', opts.inputSetOpts, 'saveResultsToFile', false);
 
         % Increment loop counter
         itr = itr+1;
@@ -63,6 +70,10 @@ end
     % Warning if CHF was not found (converged)
     if ~hasConverged
         warning('Power iteration failed to converge!');
+    else
+        % Otherwise, save the results to file
+        gr.results.inputSet.session.makeSessionDirectory();
+        gr.saveResults();
     end
 
 end

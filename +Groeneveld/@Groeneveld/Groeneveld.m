@@ -18,6 +18,17 @@ classdef Groeneveld < Dataset
         %criteria. 
         % TODO: implement after completion of a more robust of
         % makeInputFiles method that takes custom parameters.
+
+        function saveResults(gr)
+        %SAVERESULTS Plots results from runCase
+        %
+            if ~isempty(gr.results)
+                gr.results.mixSolver.saveResults(saveFormat="MAT");
+                gr.results.saveResults(saveFormat="MAT");
+            else
+                error('No results available. Try gr.runCase() first.');
+            end
+        end
         
         function entries = listEntries(gr)
         %LISTENTRIES Lists all the possible entries

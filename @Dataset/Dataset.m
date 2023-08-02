@@ -175,6 +175,12 @@ classdef Dataset < handle
         %
             obj.methodNotImplemented();
         end
+        
+        function saveResults(obj)
+        %SAVERESULTS Plots results from runCase
+        %
+            obj.methodNotImplemented();
+        end
 
         function plotResults(obj)
         %PLOTRESULTS Plots results from runCase

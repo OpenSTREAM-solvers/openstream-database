@@ -5,6 +5,7 @@ arguments
    gr
    opts.inputSetOpts = {'overwriteSessionFiles', true, ...
                         'LOGMODE'              , 'BOTH'};                   % Options for InputSet
+   opts.saveResultsToFile = true;
 end
 
     % Create input files if folder paths are empty
@@ -29,12 +30,13 @@ end
     % Solve 
     tfSolver.solve();
 
-    % Save results
-    mixSolver = tfSolver.mixSolver;
-    mixSolver.saveResults(saveFormat="MAT");
-    tfSolver.saveResults(saveFormat="MAT");
-
     % Return results
     gr.results = tfSolver;
+
+    % Save results
+    if opts.saveResultsToFile
+        gr.saveResults();
+    end
+    
 
 end
