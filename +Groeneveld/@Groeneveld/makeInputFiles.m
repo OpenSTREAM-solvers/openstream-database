@@ -28,7 +28,7 @@ function makeInputFiles(gr, inputOpts)
     geomOptions = inputOpts.geometry;
     geomOptions = setDefaultOpt(geomOptions, 'LENGTH', entry.HeatedLength);
     geomOptions = setDefaultOpt(geomOptions, 'AREA', flowArea);
-    geomOptions = setDefaultOpt(geomOptions, 'PERIM', entry.TubeDiameter);
+    geomOptions = setDefaultOpt(geomOptions, 'PERIM', pi.*entry.TubeDiameter);
     geomOptions = gr.inputOptions2Cell(geomOptions);
     Inputs.Geometry.writeInputFile( ...
         gr.geometryFilePath, ...
