@@ -1,13 +1,13 @@
-clearvars
+% clearvars
 warning('off','all');
 %close all
 
 
 % Start without any entryID
-gr = Groeneveld.Groeneveld();
+gr0 = Groeneveld.Groeneveld();
 
 % List all possible entries
-entries = gr.listEntries();
+entries = gr0.listEntries();
 
 QualityLimits = [0.5 1];
 DiameterLimits = [6e-3 20e-3];
@@ -35,12 +35,14 @@ chf = nan(length(I_test),1);
 chf_gveld = nan(length(I_test),1);
 delta_chf = nan(length(I_test),1);
 
-parfor run = 1:20%length(I_test)
+for run = 23%:20%length(I_test)
 
 % Start without any entryID
-gr = Groeneveld.Groeneveld();
+gr = Groeneveld.Groeneveld(I_test(run), ...
+    'isLightWeight', true, ...
+    'lightWeightEntryData', gr0.dataset(I_test(run),:));
 
-gr.entryID = I_test(run);
+% gr.entryID = I_test(run);
 chf_gveld(run) = entries.CHF(gr.entryID);
     
 %   First, list possible properties (ID cannot be overridden)
@@ -61,25 +63,26 @@ chf_gveld(run) = entries.CHF(gr.entryID);
     opts.model.VAPORFRIC = 'CONSTANT'; 
     opts.model.POSFILM = 0;
     opts.boundaryConditions.TIME = [0];   % change the time steps to [0 3]
-    opts.boundaryConditions.POWER =   (gr.dataset(gr.entryID,:).CHF) * 1000 * (gr.dataset(gr.entryID,:).HeatedLength) *pi*(gr.dataset(gr.entryID,:).TubeDiameter) ;
+    opts.boundaryConditions.POWER =   (gr.entryData.CHF) * 1000 * (gr.entryData.HeatedLength) *pi*(gr.entryData.TubeDiameter) ;
 %   Finally, make input files with opts
     gr.makeInputFiles(opts);
 
     % InputSet options
     inputSetOpts = {'overwriteSessionFiles', true, ...
-                        'LOGMODE'              , 'NONE'};
+                        'LOGMODE'              , 'NONE'}; %LOGTOCONSOLEONLY
 
 % Run case
 gr.runCase("inputSetOpts",inputSetOpts, "saveResultsToFile", false);
 
 % Mass flux per unit perimeter and other stuff
-WLout = [];
+WLout_vec = [];
 delta_vec = [];
 Power_vec = [];
-WLout(1) = min(gr.results.film(gr.results.NTIME).WL);
+WLout_vec(1) = min(gr.results.film(gr.results.NTIME).WL);
 delta_vec(1) = gr.results.film(gr.results.NTIME).THICK(end);
 Power_vec(1) = gr.results.mixSolver.inputSet.bc.POWER;
 Powerchange = [];
+caseCode = [];
 
 
 %%
@@ -88,7 +91,7 @@ if P_iteration
     while (itr<maxitr)
 
         % Latest delta
-        delta_itr = gr.results.film(gr.results.NTIME).THICK(end);
+        delta_itr = delta_vec(end);
         
         % Break if iteration condition is met
         if abs(delta_itr)<delta_out
@@ -100,22 +103,29 @@ if P_iteration
         % Calculate the new powerchange
         % use 1 percent rule for first iteration
         if itr ==1
-            Powerchange(itr) = sign(WLout(itr))*max(0.01,abs(WLout(itr))/5);
-        
+            Powerchange(itr) = sign(WLout_vec(itr))*max(0.01,abs(WLout_vec(itr))/5);
+            caseCode(itr) = 1;
         % if overshoot (i.e. sign change), half previous powerchange
-        elseif sign(WLout(itr)) ~= sign(WLout(itr-1))
+        elseif sign(WLout_vec(itr)) ~= sign(WLout_vec(itr-1))
             Powerchange(itr) = -Powerchange(itr-1)./2;
-        
+            caseCode(itr) = 2;
         % if on the same sidecalculate rate of change 
         else
-            dWLout = WLout(itr) - WLout(itr-1);
+            dDelta = delta_vec(itr) - delta_vec(itr-1);
             % Somehow WLout is artificially limited
-            if abs(dWLout) < 1E-6
-                Powerchange(itr) = sign(WLout(itr))*max(0.01,abs(WLout(itr))/5);
+            if abs(dDelta) < 1E-6
+                Powerchange(itr) = sign(WLout_vec(itr))*max(0.01,abs(WLout_vec(itr))/5);
+                caseCode(itr) = 3;
             else
                 dPower = Power_vec(itr) - Power_vec(itr-1);
-                newPower = (0-WLout(itr)) ./ (dWLout./dPower);
-                Powerchange(itr) = (newPower-1)./Power_vec(itr-1);
+                newPower = (0-delta_vec(itr)) ./ (dDelta./dPower) + Power_vec(itr);
+                %Powerchange(itr) = (newPower-1)./Power_vec(itr-1);
+                Powerchange(itr) = newPower ./ Power_vec(itr) -1;
+                caseCode(itr) = 4;
+            end
+            if abs(Powerchange(itr)) > 0.5
+                Powerchange(itr) = sign(WLout_vec(itr))*max(0.10,abs(WLout_vec(itr))/10);
+                caseCode(itr) = 5;
             end
             %Powerchange(itr) = sign(WLout(itr))*min(0.01,abs(WLout(itr))/10); % 1% power increase corresponding to 0.1 kg/m-s    
         end
@@ -130,20 +140,22 @@ if P_iteration
         gr.runCase("inputSetOpts",inputSetOpts, "saveResultsToFile", false);
     
         % update 
-        WLout(itr+1) = min(gr.results.film(gr.results.NTIME).WL);
-        delta_vec(itr+1) = delta_itr;  %Testing purposes
+        WLout_vec(itr+1) = min(gr.results.film(gr.results.NTIME).WL);
+        delta_vec(itr+1) = gr.results.film(gr.results.NTIME).THICK(end);  %Testing purposes
         Power_vec(itr+1) = power_itr;
 
         itr = itr+1;
+
+
     end
 
-    fh = figure();
+    fh = figure;
     ah = axes(fh);
     hold(ah, 'on');
     yyaxis(ah,"left");
     ylabel(ah,'Delta, Mass Flux')
     plot(ah,delta_vec.*1000,'ko-','DisplayName','delta*1000');
-    plot(ah,WLout,'bo-','DisplayName','Mass flux');
+    plot(ah,WLout_vec,'bo-','DisplayName','Mass flux');
     grid(ah,'minor')
     yyaxis(ah,'right');
     ylabel(ah,'Power')
