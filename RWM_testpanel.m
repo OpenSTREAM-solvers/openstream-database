@@ -1,8 +1,10 @@
-clear all
+clearvars
+warning('off','all');
 %close all
 
+
 % Start without any entryID
-gr = Groeneveld.Groeneveld()
+gr = Groeneveld.Groeneveld();
 
 % List all possible entries
 entries = gr.listEntries();
@@ -13,7 +15,7 @@ HeatedLengthLimits = [1 5];
 MassFluxLimits = [100 2000];
 
 P_iteration =1;
-delta_out = 50e-6; 
+delta_out = 5e-6; 
 maxitr = 50;
 
 %Indicies of data points that fit criteria
@@ -33,17 +35,26 @@ chf = nan(length(I_test),1);
 chf_gveld = nan(length(I_test),1);
 delta_chf = nan(length(I_test),1);
 
-for run = 1% 1:length(I_test)
+parfor run = 1:20%length(I_test)
+
+% Start without any entryID
+gr = Groeneveld.Groeneveld();
 
 gr.entryID = I_test(run);
 chf_gveld(run) = entries.CHF(gr.entryID);
     
 %   First, list possible properties (ID cannot be overridden)
-    Inputs.Model().listInputProperties("exclude",{'ID'})
+    Inputs.Model().listInputProperties("exclude",{'ID'});
 %   Next, create the structure for custom properties
     opts = gr.inputOptions();
     
 %   Then, specify the override(s). 
+    opts.options.SSTSTEP = 0.5;
+    opts.options.SSMAXITER = 100;
+    opts.options.SSCONVW = 1E-3;
+    opts.options.SSCONVP = 1E-1;
+    opts.options.SSCONVH = 1E-1;
+
     opts.model.MOMENTFILM = 'ALGEBRAIC';    % change the MOMENTFILM model to ALGEBRAIC
     opts.model.MOMENTDROP = 'ALGEBRAIC'; 
     opts.model.OAF = 'WALLIS'; 
@@ -54,48 +65,91 @@ chf_gveld(run) = entries.CHF(gr.entryID);
 %   Finally, make input files with opts
     gr.makeInputFiles(opts);
 
+    % InputSet options
+    inputSetOpts = {'overwriteSessionFiles', true, ...
+                        'LOGMODE'              , 'NONE'};
 
 % Run case
-gr.runCase();
+gr.runCase("inputSetOpts",inputSetOpts, "saveResultsToFile", false);
+
+% Mass flux per unit perimeter and other stuff
+WLout = [];
+delta_vec = [];
+Power_vec = [];
+WLout(1) = min(gr.results.film(gr.results.NTIME).WL);
+delta_vec(1) = gr.results.film(gr.results.NTIME).THICK(end);
+Power_vec(1) = gr.results.mixSolver.inputSet.bc.POWER;
+Powerchange = [];
 
 
 %%
 if P_iteration
     itr = 1;
     while (itr<maxitr)
-         delta_itr = gr.results.film(gr.results.NTIME).THICK(end)
-         if abs(delta_itr)<delta_out
+
+        % Latest delta
+        delta_itr = gr.results.film(gr.results.NTIME).THICK(end);
+        
+        % Break if iteration condition is met
+        if abs(delta_itr)<delta_out
             chf(run) = mean(gr.results.mixSolver.mixture(gr.results.NTIME).HFLUX)/1000;
             delta_chf(run) = delta_itr;
             break
         end
-        % Check mass flux per unit perimeter
-        WLout(itr) = min(gr.results.film(gr.results.NTIME).WL);
-        % Calculate the new power
+        
+        % Calculate the new powerchange
+        % use 1 percent rule for first iteration
         if itr ==1
             Powerchange(itr) = sign(WLout(itr))*max(0.01,abs(WLout(itr))/5);
-
-        elseif (sign(WLout(itr)).*sign(WLout(itr-1))==-1)
+        
+        % if overshoot (i.e. sign change), half previous powerchange
+        elseif sign(WLout(itr)) ~= sign(WLout(itr-1))
             Powerchange(itr) = -Powerchange(itr-1)./2;
+        
+        % if on the same sidecalculate rate of change 
         else
-            Powerchange(itr) = sign(WLout(itr))*min(0.01,abs(WLout(itr))/10); % 1% power increase corresponding to 0.1 kg/m-s    
+            dWLout = WLout(itr) - WLout(itr-1);
+            % Somehow WLout is artificially limited
+            if abs(dWLout) < 1E-6
+                Powerchange(itr) = sign(WLout(itr))*max(0.01,abs(WLout(itr))/5);
+            else
+                dPower = Power_vec(itr) - Power_vec(itr-1);
+                newPower = (0-WLout(itr)) ./ (dWLout./dPower);
+                Powerchange(itr) = (newPower-1)./Power_vec(itr-1);
+            end
+            %Powerchange(itr) = sign(WLout(itr))*min(0.01,abs(WLout(itr))/10); % 1% power increase corresponding to 0.1 kg/m-s    
         end
-
-            %update the input files
-        POWER_itr = gr.results.mixSolver.inputSet.bc.POWER;
-        POWER_itr = POWER_itr  * (1 + Powerchange(itr));
-        opts.boundaryConditions.POWER = POWER_itr;
+        
+        %update the input files
+        power_itr = gr.results.mixSolver.inputSet.bc.POWER;
+        power_itr = power_itr  * (1 + Powerchange(itr));
+        opts.boundaryConditions.POWER = power_itr;
         gr.makeInputFiles(opts);
+        
         %Run thew new case
-        gr.runCase();
+        gr.runCase("inputSetOpts",inputSetOpts, "saveResultsToFile", false);
     
-         WLout(itr) = min(gr.results.film(gr.results.NTIME).WL);
-         %WL_vec(itr) = WLout;
-         delta_vec(itr+1) = delta_itr;  %Testing purposes
-         Power_vec(itr+1) = POWER_itr;
+        % update 
+        WLout(itr+1) = min(gr.results.film(gr.results.NTIME).WL);
+        delta_vec(itr+1) = delta_itr;  %Testing purposes
+        Power_vec(itr+1) = power_itr;
 
         itr = itr+1;
     end
+
+    fh = figure();
+    ah = axes(fh);
+    hold(ah, 'on');
+    yyaxis(ah,"left");
+    ylabel(ah,'Delta, Mass Flux')
+    plot(ah,delta_vec.*1000,'ko-','DisplayName','delta*1000');
+    plot(ah,WLout,'bo-','DisplayName','Mass flux');
+    grid(ah,'minor')
+    yyaxis(ah,'right');
+    ylabel(ah,'Power')
+    plot(ah,Power_vec,'ro-','DisplayName','Power');
+    legend(ah,'show')
+    hold(ah, 'off');
 
 
 % figure(2)
@@ -106,17 +160,20 @@ if P_iteration
 % grid on
 
 
+
+
+end
+
 end
 
 
-
-figure(1)
-plot(chf_gveld(run),chf(run),'.b','MarkerSize',21)
-hold on; grid on;
-xlabel('CHF - Gveld (kW/m^2)','FontSize',14);  xlim([0 max(entries.CHF(I_test))*2])
-ylabel('CHF - Solver (kW/m^2)','FontSize',14); ylim([0 max(entries.CHF(I_test))*2])
-
-set(gcf,'Position',[0 0 600 600])
+fh = figure(2);
+ah = axes(fh);
+plot(ah,chf_gveld(:),chf(:),'.b','MarkerSize',21)
+hold(ah,'on'); grid(ah,'on');
+xlabel(ah,'CHF - Gveld (kW/m^2)','FontSize',14);  xlim([0 max(entries.CHF(I_test))*2])
+ylabel(ah,'CHF - Solver (kW/m^2)','FontSize',14); ylim([0 max(entries.CHF(I_test))*2])
+set(fh,'Position',[0 0 600 600])
 
 %% plotting
 % delta = gr.results.film(gr.results.NTIME).THICK;
@@ -151,5 +208,5 @@ set(gcf,'Position',[0 0 600 600])
 
 
 
-end
 
+warning('on','all');
