@@ -41,6 +41,11 @@ classdef Groeneveld < Dataset
         function validateEntry(gr, entryID)
         %VALIDATEENTRY Check if an entryID is valid
         %   Throws error if entryID is invalid
+
+            % Skip validation in lightweight mode
+            if gr.isLightWeight
+                return
+            end
             if ~isnumeric(entryID)
                 throw(MException( ...
                     'InvalidEntryIDError:NonNumericID', ...
@@ -57,11 +62,19 @@ classdef Groeneveld < Dataset
 
    methods (Access=protected)
 
-       function setEntryData(gr)
+       function setEntryData(gr, entryData)
         %SETENTRYDATA Sets the entryData property using entryID
+        arguments
+            gr
+            entryData = {};
+        end
 
-            % Retrieve entry data from dataset table
-            gr.entryData = gr.dataset(gr.entryID,:);
+            if gr.isLightWeight
+                gr.entryData = entryData;
+            else
+                % Retrieve entry data from dataset table
+                gr.entryData = gr.dataset(gr.entryID,:);
+            end
 
        end
 

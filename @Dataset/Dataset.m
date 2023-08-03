@@ -31,6 +31,7 @@ classdef Dataset < handle
 
     properties (SetAccess = protected)
         entryData
+        isLightWeight   = false
         results     = []
         misc
     end
@@ -44,12 +45,18 @@ classdef Dataset < handle
 
     
     methods (Access=protected)
-        function obj = Dataset(entryID)
+        function obj = Dataset(entryID, opts)
             %DATASET Construct an instance of the dataset interface
             %   Detailed explanation goes here
             arguments
                 entryID  = -1;
+                opts.isLightWeight = false;
+                opts.lightWeightEntryData = {};
             end
+
+            % Set isLightWeight variable. If true, the full dataset will
+            % not be read.
+            obj.isLightWeight = opts.isLightWeight;
             
             % Add TwoPhaseSolver to path
             % TODO: Find a more elegant way to do this
@@ -59,10 +66,22 @@ classdef Dataset < handle
             obj.preprocessor();
 
             % return if entryID == -1
-            if isnumeric(entryID) && entryID == -1, return;  end
+            if isnumeric(entryID) && entryID == -1
+                return
+            elseif obj.isLightWeight
+                if isempty(opts.lightWeightEntryData)
+                    error('In light weight mode, lightWeightEntryData cannot be empty');
+                end
+                obj.entryID = entryID;
+                obj.setEntryData(opts.lightWeightEntryData);
+            else
 
-            % set the entryID
-            obj.entryID = entryID;            
+                % set the entryID
+                obj.entryID = entryID;   
+
+            end
+
+                    
 
             % TODO: Otherwise, do something else
             % ...
