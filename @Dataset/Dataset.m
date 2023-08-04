@@ -60,7 +60,11 @@ classdef Dataset < handle
             
             % Add TwoPhaseSolver to path
             % TODO: Find a more elegant way to do this
-            addpath("TwoPhaseSolver");
+            % addpath("..\TwoPhaseSolver");
+            % addpath("TwoPhaseSolver");
+            if strcmp(which('Inputs.Input'), 'Not on MATLAB path')
+                error('Missing TwoPhaseSolver on MATLAB Path.');
+            end
 
             % Run the preprocessor to prepare dataset
             obj.preprocessor();
