@@ -1,5 +1,6 @@
-**.asv
+**/*.asv
 **/+inputs/**/*
 **/+results/**/*
 **/outputs/**/*
+sandbox/**/*
 

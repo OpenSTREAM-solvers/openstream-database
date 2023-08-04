@@ -71,8 +71,43 @@ yyaxis(ah,'right');
 legend(ah,'show')
 hold(ah, 'off');
 
+%   A case study (i.e. multiple entryIDs) power iteration can be performed
+%   using the CaseStudy_CHF static method. Here, the first 10 cases that
+%   satisfy a set of criteria will be run in this demo.
 
+% List all possible entries
+dataset = Groeneveld.Groeneveld().listEntries();
 
+% List of criteria limits
+limits = struct('quality', [0.5, 1], ...
+                'diameter', [6E-3, 20E-3], ...
+                'heatedLength', [1, 5], ...
+                'massFlux', [100 2000]);
 
+%Indicies of entries that fit criteria
+validEntries = find( isBetween(dataset.OutletQuality, limits.quality) & ...
+                     isBetween(dataset.TubeDiameter, limits.diameter) & ...
+                     isBetween(dataset.HeatedLength, limits.heatedLength) & ...
+                     isBetween(dataset.MassFlux, limits.massFlux), ...
+                     10);
 
+% Call case study
+% TODO: currently, errors aren't catched in this method
+ITRs = Groeneveld.Groeneveld.CaseStudy_CHF(validEntries, ...
+                                           "WLout_out_max", 0.001, ...
+                                           "maxIter", 15 ...
+                                           );
+
+% Calculate CHF vs Groeneveld Table CHF are plotted
+fh = figure(2);
+ah = axes(fh);
+plot(ah,[ITRs.CHF_GVELD],[ITRs.CHF],'.b','MarkerSize',21)
+hold(ah,'on'); grid(ah,'on');
+xlabel(ah,'CHF - Gveld (kW/m^2)','FontSize',14);  xlim([0 max([ITRs.CHF_GVELD])*1.2]);
+ylabel(ah,'CHF - Solver (kW/m^2)','FontSize',14); ylim([0 max([ITRs.CHF_GVELD])*1.2]);
+set(fh,'Position',[0 0 600 600])
+
+function tf = isBetween(v,limits)
+    tf = v>limits(1) & v<=limits(2);
+end
 

@@ -15,7 +15,8 @@ end
     inpOpts = opts.inpOpts;
     
     % Iteration variables
-    ITR = struct('delta',[],'WLout',[],'power',[], 'powerchange', []);
+    ITR = struct('delta',[],'WLout',[],'power',[], 'powerchange', [], ...
+            'CHF', NaN, 'CHF_GVELD', gr.entryData.CHF);
 
     % Run zero-transient using SS time march
     inpOpts.options.SSTSTEP = 0.5;
@@ -50,6 +51,7 @@ end
         % Break if film massflow is sufficiently low
         if abs(ITR.WLout(itrIdx)) <= opts.WLout_out_max
             hasConverged = true;
+            ITR.CHF = mean(gr.results.mixSolver.mixture(end).HFLUX)/1000;   % heat flux in in kW/m^2
             break;
         end
        
