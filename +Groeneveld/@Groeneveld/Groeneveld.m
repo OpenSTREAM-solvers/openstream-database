@@ -13,7 +13,7 @@ classdef Groeneveld < Dataset
         runCase(gr, opts)
         %RUNCASE Run case
 
-        powerIteration(gr, opts)
+        ITR = powerIteration(gr, opts)
         %POWERITERATION Iterate heat flux boundary conditions to reach
         %criteria. 
         % TODO: implement after completion of a more robust of
@@ -77,6 +77,12 @@ classdef Groeneveld < Dataset
             end
 
        end
+
+   end
+
+   methods (Static)
+
+       ITRs = CaseStudy_CHF(entryIDs, opts)
 
    end
 

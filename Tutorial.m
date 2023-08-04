@@ -31,3 +31,48 @@ gr.runCase();
 
 % Run case
 gr.runCase();
+
+%% Power Iteration
+%   The powerIteration method of the Groeneveld Dataset allows iteration on
+%   total heating power to satisfy a specified criterion. Currently, the
+%   method is designed to find the power that leads to:
+%       abs(WLout) < 0.001 [kg/m-s]
+%   , where WLout is the film mass flow rate per perimeter. While no cases
+%   create multi-wall geometries, the program uses the minimum WLout if
+%   multi-wall geometries were present. The 0.001 [kg/m-s] limit is set by
+%   default, and can be specified as an optional argument to the method.
+%   
+%   The rationale for using WLout 0.001 [kg/m-s] as iteration target is
+%   based on observation of CHF. This value roughly corresponds to a 0.1%
+%   error in power. In reality, further investigation may be needed to
+%   explain the underlying physics that leads to this observation.
+
+%   A single case (i.e. entryID=302) power iteration (_pi) study is
+%   performed with the target specified at 0.001 and a maximum of 15
+%   iterations.
+
+warning('off','all')    %TODO implement quiet solver mode
+gr_pi = Groeneveld.Groeneveld(302);
+pi_results = gr_pi.powerIteration("WLout_out_max",0.001,"maxIter",15);
+warning('on','all')
+
+%   WLout, power, and delta (film thickness) are then plotted:
+fh = figure();
+ah = axes(fh);
+yyaxis(ah,"left");
+    plot(ah,pi_results.delta.*1000,'ko-','DisplayName','Delta*1000');
+    hold(ah, 'on');
+    plot(ah,pi_results.WLout,'bo-','DisplayName','Mass flux');
+    xlabel(ah, 'Iteration [-]'), ylabel(ah,'Delta [1000\cdot\mum], Mass Flux[kg/m-s]')
+    grid(ah,'minor')
+yyaxis(ah,'right');
+    plot(ah,pi_results.power,'ro-','DisplayName','Power');
+    ylabel(ah,'Power [W]')
+legend(ah,'show')
+hold(ah, 'off');
+
+
+
+
+
+

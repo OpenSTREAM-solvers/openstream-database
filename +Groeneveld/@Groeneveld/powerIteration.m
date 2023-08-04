@@ -1,20 +1,24 @@
-function newPower = powerIteration(gr, opts)
+function ITR = powerIteration(gr, opts)
 %POWERITERATION Iterate heat flux boundary conditions to reach
 %criteria.
 % Detailed description goes here.
 arguments
     gr
-    opts.delta_out_max  (1,1)   {isnumeric} = 25E-5;
+    opts.inpOpts                            = gr.inputOptions();                  % Create structure for custom input settings                          
+    opts.WLout_out_max  (1,1)   {isnumeric} = 1E-3;
     opts.maxIter        (1,1)   {isnumeric} = 50;
     opts.inputSetOpts                       = {'overwriteSessionFiles', true, ...
                                                'LOGMODE'              , 'NONE'};
 end
-   
-    % Create the structure for custom properties
-    inpOpts = gr.inputOptions();
+
+    % Custom input settings
+    inpOpts = opts.inpOpts;
     
+    % Iteration variables
+    ITR = struct('delta',[],'WLout',[],'power',[], 'powerchange', []);
+
     % Run zero-transient using SS time march
-    inpOpts.options.SSTSTEP = 1;
+    inpOpts.options.SSTSTEP = 0.5;
     inpOpts.options.SSMAXITER = 100;
     inpOpts.options.SSCONVW = 1E-3;
     inpOpts.options.SSCONVP = 1E-1;
@@ -26,55 +30,68 @@ end
     newPower =   (gr.entryData.CHF) * 1000 * (gr.entryData.HeatedLength) *pi*(gr.entryData.TubeDiameter) ;
     inpOpts.boundaryConditions.POWER = newPower;
     
+
     % Finally, make input files with opts
-    gr.makeInputFiles(inpOpts);
-        
-    % Run case
-    gr.runCase('inputSetOpts', opts.inputSetOpts, 'saveResultsToFile', false);
+    gr.makeInputFiles(inpOpts);    
     
     %Iterate power
-    itr = 0;
+    itrIdx = 1;
     hasConverged = false;
-    while (itr < opts.maxIter)
+    while (itrIdx < opts.maxIter)
 
-        % Film thickness at outlet at final time step
-        delta_itr = gr.results.film(end).THICK(end);
+        % Run case
+        gr.runCase('inputSetOpts', opts.inputSetOpts, 'saveResultsToFile', false);
 
-        % Break if film is sufficiently thin
-        if abs(delta_itr) < opts.delta_out_max
+        % Film thickness and liquid mass flux at outlet at final time step
+        ITR.delta(itrIdx) = gr.results.film(end).THICK(end);
+        ITR.WLout(itrIdx) = min(gr.results.film(end).WL);
+        ITR.power(itrIdx) = newPower;
+
+        % Break if film massflow is sufficiently low
+        if abs(ITR.WLout(itrIdx)) <= opts.WLout_out_max
             hasConverged = true;
-            break
+            break;
         end
-
-        % Mass flux per unit perimeter at outlet and last time step
-        WLout = gr.results.film(end).WL(end);
        
-        % Calculate power change following this rule-of-thumb:
-        %   +/-1% power change per +/-0.1 kg/m-s of flow at outlet
-        powerChange = sign(delta_itr)*max(0.01,abs(WLout)/10);   
+        % Calculate the new powerchange
+        % use 1 percent rule for first iteration and nonsensical conditions
+        %   non-sensical condition refers to increase in WLout with
+        %   increase in power, and vice versa.
+        if itrIdx ==1 || sign(ITR.power(end)-ITR.power(end-1)) == sign(ITR.WLout(end)-ITR.WLout(end-1))
+            ITR.powerchange(itrIdx) = ITR.WLout(itrIdx);
+        else
+            % Spline interp with all previous data
+            newPower = spline(ITR.WLout, ITR.power, sign(ITR.WLout(itrIdx)).*opts.WLout_out_max./2);
+            ITR.powerchange(itrIdx) = newPower ./ ITR.power(itrIdx) -1;
+        end
         
         % Update power 
-        newPower = (gr.results.inputSet.bc(end).POWER) * (1 + powerChange) ;
+        newPower = ITR.power(itrIdx) * (1 + ITR.powerchange(itrIdx)) ;
+
+        % Break if newPower is non-negative
+        if newPower < 0
+            warning('Negative power occurred.');
+            break;
+        end
+
+        % Assign new power
         inpOpts.boundaryConditions.POWER = newPower;
        
         % Update input files
         gr.makeInputFiles(inpOpts);
         
-        %Run new case
-        gr.runCase('inputSetOpts', opts.inputSetOpts, 'saveResultsToFile', false);
-
         % Increment loop counter
-        itr = itr+1;
+        itrIdx = itrIdx+1;
     end
 
     % Warning if CHF was not found (converged)
     if ~hasConverged
         warning('Power iteration failed to converge!');
-    else
-        % Otherwise, save the results to file
-        gr.results.inputSet.session.makeSessionDirectory();
-        gr.saveResults();
     end
+
+    % Save the results to file
+    gr.results.inputSet.session.makeSessionDirectory();
+    gr.saveResults();
 
 end
 
