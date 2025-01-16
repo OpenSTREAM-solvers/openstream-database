@@ -85,6 +85,7 @@ limits = struct('quality', [0.5, 1], ...
                 'massFlux', [100 2000]);
 
 %Indicies of entries that fit criteria
+isBetween = @(v,limits) v>limits(1) & v<=limits(2);
 validEntries = find( isBetween(dataset.OutletQuality, limits.quality) & ...
                      isBetween(dataset.TubeDiameter, limits.diameter) & ...
                      isBetween(dataset.HeatedLength, limits.heatedLength) & ...
@@ -106,8 +107,3 @@ hold(ah,'on'); grid(ah,'on');
 xlabel(ah,'CHF - Gveld (kW/m^2)','FontSize',14);  xlim([0 max([ITRs.CHF_GVELD])*1.2]);
 ylabel(ah,'CHF - Solver (kW/m^2)','FontSize',14); ylim([0 max([ITRs.CHF_GVELD])*1.2]);
 set(fh,'Position',[0 0 600 600])
-
-function tf = isBetween(v,limits)
-    tf = v>limits(1) & v<=limits(2);
-end
-

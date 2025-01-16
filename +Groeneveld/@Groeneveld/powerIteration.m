@@ -19,16 +19,16 @@ end
             'CHF', NaN, 'CHF_GVELD', gr.entryData.CHF);
 
     % Run zero-transient using SS time march
-    inpOpts.options.SSTSTEP = 0.5;
-    inpOpts.options.SSMAXITER = 100;
-    inpOpts.options.SSCONVW = 1E-3;
-    inpOpts.options.SSCONVP = 1E-1;
-    inpOpts.options.SSCONVH = 1E-1;
+%     inpOpts.options.SSTSTEP = 0.5;
+%     inpOpts.options.SSMAXITER = 100;
+%     inpOpts.options.SSCONVW = 1E-3;
+%     inpOpts.options.SSCONVP = 1E-1;
+%     inpOpts.options.SSCONVH = 1E-1;
 
-    inpOpts.model.MOMENTFILM = 'ALGEBRAIC';     % change the MOMENTFILM model to ALGEBRAIC
-    inpOpts.model.POSFILM = 0;              % allow negative film 
+%     inpOpts.model.MOMENTFILM = 'ALGEBRAIC';     % change the MOMENTFILM model to ALGEBRAIC
+    inpOpts.model.POSFILM = 0;                  % allow negative film 
     inpOpts.boundaryConditions.TIME = 0;        % zero-transient
-    newPower =   (gr.entryData.CHF) * 1000 * (gr.entryData.HeatedLength) *pi*(gr.entryData.TubeDiameter) ;
+    newPower =   (gr.entryData.CHF) * 1000 * (gr.entryData.HeatedLength) *pi*(gr.entryData.TubeDiameter);
     inpOpts.boundaryConditions.POWER = newPower;
     
 
