@@ -2,7 +2,7 @@ classdef Dataset < handle
     %DATASET Interface for accessing datasets in this database. 
     %   The Navigator class defines a consistent structure for each
     %   dataset. Datasets are defined as packages in this database. In
-    %   other words, databse folders are named "+<database_name>". 
+    %   other words, database folders are named "+<database_name>". 
     %   
     %   Each dataset structure is as follows:
     %   
@@ -20,19 +20,20 @@ classdef Dataset < handle
     %       
     
     properties
+        name                = 'DEFAULT'
         entryID (1,:)       = -1
         dataset
         caseFolderPaths
 
-        modelID
-        geometryID
-        optionsID
+        modelID             = 'DEFAULT'
+        geometryID          = 'DEFAULT'
+        optionsID           = 'DEFAULT'
     end
 
     properties (SetAccess = protected)
         entryData
-        isLightWeight   = false
-        results     = []
+        isLightWeight       = false
+        results             = []
         misc
     end
 
@@ -45,6 +46,7 @@ classdef Dataset < handle
 
     
     methods (Access=protected)
+        
         function obj = Dataset(entryID, opts)
             %DATASET Construct an instance of the dataset interface
             %   Detailed explanation goes here
@@ -58,12 +60,12 @@ classdef Dataset < handle
             % not be read.
             obj.isLightWeight = opts.isLightWeight;
             
-            % Add TwoPhaseSolver to path
+            % Add OpenSTREAM to path
             % TODO: Find a more elegant way to do this
-            % addpath("..\TwoPhaseSolver");
-            % addpath("TwoPhaseSolver");
+            % addpath("../OpenSTREAM");
+            % addpath("OpenSTREAM");
             if strcmp(which('Inputs.Input'), 'Not on MATLAB path')
-                error('Missing TwoPhaseSolver on MATLAB Path.');
+                error('Missing OpenSTREAM on MATLAB Path.');
             end
 
             % Run the preprocessor to prepare dataset
@@ -79,13 +81,9 @@ classdef Dataset < handle
                 obj.entryID = entryID;
                 obj.setEntryData(opts.lightWeightEntryData);
             else
-
                 % set the entryID
                 obj.entryID = entryID;   
-
             end
-
-                    
 
             % TODO: Otherwise, do something else
             % ...
@@ -126,10 +124,13 @@ classdef Dataset < handle
     end
 
     methods (Abstract, Access=protected)
+        
         setEntryData
+        
     end
 
     methods
+        
         function set.entryID(obj, entryID)
         %SET.ENTRYID Validates and sets entryID
         %
@@ -246,11 +247,11 @@ classdef Dataset < handle
                 optionName = optionNames{i};
     
                 % Ignore if option name is ID
-                switch optionName
-                    case 'ID'
-                        warning('ID (%s) cannot be overwritten.', optionName);
-                        continue;
-                end
+                %switch optionName
+                %    case 'ID'
+                %        warning('ID (%s) cannot be overwritten.', optionName);
+                %        continue;
+                %end
     
                 % Insert option name
                 cellPair{end+1} = optionName;

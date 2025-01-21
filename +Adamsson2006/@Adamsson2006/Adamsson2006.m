@@ -1,5 +1,7 @@
 classdef Adamsson2006 < Dataset
 
+    
+    
     methods
 
         preprocessor(adam)
@@ -14,11 +16,11 @@ classdef Adamsson2006 < Dataset
         plotResults(adam)
         %PLOTRESULTS
 
-        function listEntries(adam)
+        function entries = listEntries(adam)
         %LISTENTRIES Lists all the possible entries
             
             % Display dataset
-            adam.dataset
+            entries = adam.dataset;
 
         end
 
