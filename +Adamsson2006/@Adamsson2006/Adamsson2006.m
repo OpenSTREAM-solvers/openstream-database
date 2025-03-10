@@ -1,63 +1,43 @@
 classdef Adamsson2006 < Dataset
-
+    %ADAMSSON2006
     
     
     methods
-
-        preprocessor(adam)
-        %PREPROCESSOR Prepares dataset for further processing
-
-        makeInputFiles(adam)
-        %MAKEINPUTFILES Creates input files on-demand
-
-        runCase(adam, opts)
-        %RUNCASE Run case
-
-        plotResults(adam)
-        %PLOTRESULTS
-
-        function entries = listEntries(adam)
-        %LISTENTRIES Lists all the possible entries
-            
-            % Display dataset
-            entries = adam.dataset;
-
-        end
-
-        function entryIDs = listEntryIDs(adam)
-        %LISTENTRYIDS Lists all the possible entry IDs
-
-            % Return dataset.TestID
-            entryIDs = adam.dataset.TestID;
+        
+        function addPath(data)
+        %ADDPATH Add path to database
+        
+            data.name = 'Adamsson2006';                                    % Name of package
+            data.path = ['+' data.name '/+src/Adamsson2006.xml'];          % Path to data file
         end
         
-        function validateEntry(adam, entryID)
-        %VALIDATEENTRY Check if an entryID is valid
-        %   Throws error if entryID is invalid
-            if isnumeric(entryID)
-                throw(MException( ...
-                    'InvalidEntryIDError:NonNumericID', ...
-                    '%s is not a valid string.', string(entryID)))
-            elseif ~ismember(entryID, adam.dataset.TestID)
-                throw(MException( ...
-                    'InvalidEntryIDError:IDOutOfBounds', ...
-                    'ID, %s, not found.', entryID));
-            end
+        function postProcessor(data)
+        %POSTPROCESSOR Post-process data and save to misc property
+        
+            results = data.results;
+            mix = results.mixSolver.mixture;
+            film = results.film;
+            drop = results.drop;
+            
+            data.misc.LD       = data.entryData.Length/data.entryData.Diameter;
+            data.misc.POWER    = data.entryData.Power;                  % [W]
+            
+            data.misc.X        = mix.XEQ(end);                          % [-]
+            data.misc.WL       = min(film.WL,[],'includenan');          % [kg/s/m]
+            
+            data.misc.OAFIDX   = mix.OAFIDX;
+            data.misc.AFL      = results.Z(end)-mix.OAFZ;               % [m]
+            data.misc.ENTDEPR  = -film.MENT(mix.OAFIDX)/drop.MDEP(mix.OAFIDX); % [-]
+            data.misc.E0       = drop.W(mix.OAFIDX)/mix.liquid.W(mix.OAFIDX);  % [-]
+            
+            data.misc.MIXCONV  = strcmp(results.mixSolver.STATE,'INITIALSTEPCONVERGED');
+            data.misc.FILMCONV = strcmp(results.STATE,'INITIALSTEPCONVERGED');
+            data.misc.MAXITER  = max(results.filmInit(end).ITR.N);
         end
-
+        
+        plotResults(data,xparam)
+        %PLOTRESULTS
+        
     end
-
-    methods (Access=protected)
-
-       function setEntryData(adam)
-        %SETENTRYDATA Sets the entryData property using entryID
-
-            % Retrieve entry data from dataset table
-            adam.entryData = adam.dataset(strcmp(adam.dataset.TestID,adam.entryID),:);
-
-       end
-
-   end
-
-
+    
 end
