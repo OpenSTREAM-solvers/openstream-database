@@ -7,20 +7,22 @@ classdef Dataset < handle
     %   Each dataset structure is as follows:
     %   
     %   +<dataset>
-    %       -> +src                 Contains dataset data and/or scripts
-    %           -> ...              Any type of data storage files
-    %                               (csv, lut, functions, etc)
+    %       -> +src                 Contains dataset data
+    %           -> ...              in xml format
+    %
     %       -> +inputs              Contains the full set of input files
     %           -> case_<entryID>
     %               -> model.inp
     %               -> geom.inp
     %               -> options.inp
     %               -> bc.inp
+    %
     %       -> README.md            Description of dataset
     %       
     
     properties
         name                = 'DEFAULT'
+        path
         entryID (1,:)       = -1
         dataset
         caseFolderPaths
@@ -120,13 +122,31 @@ classdef Dataset < handle
                 'Dataset:MethodNotImplmentedError', ...
                 '%s is not implemented', st(end).name));
         end
-
-    end
-
-    methods (Abstract, Access=protected)
         
-        setEntryData
-        
+        function setEntryData(data,entryData)
+        %SETENTRYDATA Sets the entryData property using entryID
+        arguments
+            data
+            entryData = {};
+        end
+
+            if data.isLightWeight
+                data.entryData = entryData;
+            else
+                % Retrieve entry data from dataset table
+                data.entryData = data.dataset(data.entryID,:);
+            end
+            
+            % Cell to array
+            param = data.entryData.Properties.VariableNames;
+            for k = 1:length(param)
+                if iscell(data.entryData.(param{k}))
+                    data.entryData.(param{k}) = data.entryData.(param{k}){:};
+                end
+            end
+            
+       end
+
     end
 
     methods
@@ -138,7 +158,9 @@ classdef Dataset < handle
             obj.entryID = entryID;
 
             % Set entryData
-            obj.setEntryData();
+            if ~obj.isLightWeight
+                obj.setEntryData();
+            end
 
         end
         
@@ -165,39 +187,100 @@ classdef Dataset < handle
     end
 
     methods
-
-        function preprocessor(obj)
-        %PREPROCESSOR Prepares dataset for further processing
-        %   Detailed explanation goes here
-            obj.methodNotImplemented();
-        end
-
-        function makeInputFiles(obj, inputOpts)
-        %MAKEINPUTFILES Creates input files on-demand
-            obj.methodNotImplemented();
-        end
-
-        function listEntries(obj)
-        %LISTENTRIES Lists all the possible entries
-            obj.methodNotImplemented();
-        end
-
-        function listEntryIDs(obj)
-        %LISTENTRYIDS Prepares dataset for further processing
-        %   Detailed explanation goes here
-            obj.methodNotImplemented();
-        end
-
-        function validateEntry(obj, entryID)
-        %VALIDATEENTRY Check if an entryID is valid
-        %   Throws error if entryID is invalid
-            obj.methodNotImplemented();
+        
+        function preprocessor(data)
+        %PREPROCESSOR Load dataset
+            
+            data.addPath();
+            if ~data.isLightWeight
+                datastruct   = readstruct(data.path);
+                data.dataset = struct2table(datastruct.dataset);
+                
+                % Convert strings to doubles when relevant
+                ind = find(ismember(table2cell(varfun(@class,data.dataset)),'string')); % Find strings
+                ind = ind(~isnan(cellfun(@str2double,data.dataset{1,ind})));            % Identify them as doubles
+                data.dataset = convertvars(data.dataset,ind,'double');                  % Convert
+            end
+            
         end
         
-        function runCase(obj, opts)
+        function runs = filterRuns(data,range)
+        %FILTERUNS Filter runs based on input range
+            
+            param = fieldnames(range);
+            for k = 1:length(param)
+                idx(:,k) = data.dataset.(param{k}) >= range.(param{k})(1) & data.dataset.(param{k}) <= range.(param{k})(2);
+            end
+            runs = find(all(idx,2));
+            
+        end
+
+        makeInputFiles(data)
+        %MAKEINPUTFILES Creates input files on-demand
+
+        function entries = listEntries(data)
+        %LISTENTRIES Lists all the possible entries
+            
+            entries = data.dataset;                                        % Display dataset
+        end
+
+        function entryIDs = listEntryIDs(data)
+        %LISTENTRYIDS Lists all the possible entry IDs
+
+            entryIDs = data.dataset.TestID;                                % Return dataset.TestID
+        end
+
+        function validateEntry(data, entryID)
+        %VALIDATEENTRY Check if an entryID is valid
+        %   Throws error if entryID is invalid
+        
+            % Skip validation in lightweight mode
+            if data.isLightWeight
+                return
+            end
+            if ~isnumeric(entryID)
+                throw(MException( ...
+                    'InvalidEntryIDError:NonNumericID', ...
+                    '%s is not a numeric value.', string(entryID)))
+            elseif entryID <= 0 || entryID >height(data.dataset)
+                throw(MException( ...
+                    'InvalidEntryIDError:IDOutOfBounds', ...
+                    'ID needs to be between 1 and %u. %u given.', ...
+                        height(data.dataset), entryID));
+            end
+        end
+        
+        runCase(data,opts)
         %RUNCASE Run case
-        %
-            obj.methodNotImplemented();
+        
+        function [notconvergedMix, notconverged] = checkConvergence(data)
+        %CHECKCONVERGENCE Check solver convergence
+        
+            % Mixing solver convergence check
+            notconvergedMix = [];
+            if isprop(data(1).results,'mixSolver')
+                state     = arrayfun(@(x) x.results.mixSolver.STATE,data,'uni',0); % Solver state
+                converged = cellfun(@(x) ismember(x,{'INITIALSTEPCONVERGED','SOLVEDCONVERGED'}),state); % Convergence flag
+                
+                notconvergedMix = find(~converged);
+                if isempty(notconvergedMix)
+                    fprintf('\nAll %d mixture solver runs converged',length(data))
+                else
+                    fprintf(['\nMixture solver not converged for run indexes ' repmat('%d ',1,length(notconvergedMix))],notconvergedMix)
+                end
+            end
+            
+            % Main solver convergence check
+            state     = arrayfun(@(x) x.results.STATE,data,'uni',0);                  % Solver state
+            converged = cellfun(@(x) ismember(x,{'INITIALSTEPCONVERGED','SOLVEDCONVERGED'}),state);           % Convergence flag
+            
+            notconverged = find(~converged);
+            if isempty(notconverged)
+                fprintf('\nAll %d main solver runs converged\n\n',length(data))
+            else
+                fprintf(['\nMain solver not converged for run indexes ' repmat('%d ',1,length(notconverged)) '\n\n'],notconverged)
+            end
+            
         end
         
         function saveResults(obj)
@@ -217,7 +300,7 @@ classdef Dataset < handle
     methods(Static)
 
         function options = inputOptions()
-        %INPUTOPTIONS Struct to be passed into obj.makeInputFiles(...)
+        %INPUTOPTIONS Struct to be passed into data.makeInputFiles(...)
         %   This method defines a standardized structure to pass
         %   user-defined input-file options.
         %
