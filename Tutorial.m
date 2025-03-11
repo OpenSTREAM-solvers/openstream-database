@@ -1,60 +1,103 @@
 
-% Start without any entryID
-gr = Groeneveld.Groeneveld()
+% Choose solver
+solver = 'ThreeField';
 
-% List all possible entries
+% Start without any entryID
+gr = Groeneveld2019.Groeneveld2019();
+
+% List all possible data entries
 entries = gr.listEntries();
 
-% Say you want to run entryID=11
+% Say you want to run entryID = 11
 gr.entryID = 11;
 
-%
+% List the corresponding database input table
+gr.entryData
+
 % Make input files with default parameters
-%   This is not strictly necessary as runCase automagically determines if
-%   input files exist.
+%   This is not strictly necessary (when using default parameters)
+%   as runCase automagically determines if input files exist.
 gr.makeInputFiles();
 
-% Run case
-gr.runCase();
+% Run case with OpenSTREAM  - TODO implement quiet solver mode
+warning('off','all')
+gr.runCase(solver)
+warning('on','all')
 
-%
 % Let's specify some specifics of the input files
-%   First, list possible properties (ID cannot be overridden)
+%   First, list possible model properties (ID cannot be overridden)
     Inputs.Model().listInputProperties("exclude",{'ID'})
 %   Next, create the structure for custom properties
     opts = gr.inputOptions()
 %   Then, specify the override(s). 
-    opts.model.MOMENTFILM = 'ALGEBRAIC';    % change the MOMENTFILM model to ALGEBRAIC
-    opts.boundaryConditions.TIME = [0 3];   % change the time steps to [0 3]
-%   Finally, make input files with opts
+    opts.model.MOMENTFILM = 'ALGEBRAIC';                           % Set the MOMENTFILM model to ALGEBRAIC
+    opts.boundaryConditions.MFLOW = gr.entryData.MassFlow*0.9;     % Decrease the mass flowr by 10%
+%   Finally, make input files with opts (mandatory to update inputs with overrides)
     gr.makeInputFiles(opts);
 
-% Run case
-gr.runCase();
+% Run case with updated inputs
+warning('off','all')
+gr.runCase(solver);
+warning('on','all')
+
+% Optional: run post processor of Groeneveld Dataset 
+%    The post processor save interesting data in the 'misc' property
+gr_pi.postProcessor()
+gr_pi.misc
 
 %% Power Iteration
 %   The powerIteration method of the Groeneveld Dataset allows iteration on
 %   total heating power to satisfy a specified criterion. Currently, the
 %   method is designed to find the power that leads to:
-%       abs(WLout) < 0.001 [kg/m-s]
+%       abs(WLout) < 0.001 [kg/m/s]
 %   , where WLout is the film mass flow rate per perimeter. While no cases
 %   create multi-wall geometries, the program uses the minimum WLout if
-%   multi-wall geometries were present. The 0.001 [kg/m-s] limit is set by
+%   multi-wall geometries were present. The 0.001 [kg/m/s] limit is set by
 %   default, and can be specified as an optional argument to the method.
 %   
 %   The rationale for using WLout 0.001 [kg/m-s] as iteration target is
 %   based on observation of CHF. This value roughly corresponds to a 0.1%
-%   error in power. In reality, further investigation may be needed to
-%   explain the underlying physics that leads to this observation.
+%   error in power.
 
-%   A single case (i.e. entryID=302) power iteration (_pi) study is
+%   A single case (i.e. entryID = 302) power iteration (_pi) study is
 %   performed with the target specified at 0.001 and a maximum of 15
 %   iterations.
 
-warning('off','all')    %TODO implement quiet solver mode
-gr_pi = Groeneveld.Groeneveld(302);
-pi_results = gr_pi.powerIteration("WLout_out_max",0.001,"maxIter",15);
+%warning('off','all')    %TODO implement quiet solver mode
+%gr_pi = Groeneveld.Groeneveld(302);
+%pi_results = gr_pi.powerIteration("WLout_out_max",0.001,"maxIter",15);
+
+% Use light weight mode to avoid loading the entire database
+gr_pi = Groeneveld2019.Groeneveld2019(302,'isLightWeight',true,'lightWeightEntryData',entries(302,:))
+
+% For succesful power iterations, a negative film mass flow must be allowed
+opts.model.POSFILM = 0;
+
+% Make input files
+gr_pi.makeInputFiles(opts);
+
+% Run case (no power iterations for now)
+warning('off','all')
+gr_pi.runCase(solver);
 warning('on','all')
+
+% Post-process
+gr_pi.postProcessor()
+
+% and finally, run power iterations
+warning('off','all')
+gr_pi = gr_pi.runPowerIterations(solver,opts);
+warning('on','all')
+
+% Some relevant results for each power iterations are saved in the misc array
+% For instance, for the last power iteration:
+gr_pi.misc(end)
+
+return
+
+%%
+% Remaining part of the tutorial will be updated/cleaned up later
+% Most of it is already done in the project Groneveld
 
 %   WLout, power, and delta (film thickness) are then plotted:
 fh = figure();
