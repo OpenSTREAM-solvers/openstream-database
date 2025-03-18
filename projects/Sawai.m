@@ -1,6 +1,6 @@
 % Sawai 1989 projects
-% The four-field solver is used to simulate the non-equilibrium development of disturbance waves meased by Sawai 1969
-% Prediction results from Le Corre 2022, Fig. 27 and Fig. 28, are reproduced
+% The four-field solver is used to simulate the non-equilibrium development of disturbance waves measured by Sawai 1969
+% Prediction results from Le Corre 2022 with MEFISTO-T code, Fig. 27 and Fig. 28, are reproduced
 %
 % openstream and openstream-database must be in the MATLAB search path
 
