@@ -26,16 +26,21 @@ alldata = Groeneveld2019();                                                % Loa
 range.Pressure        = [6 20].*1E6;                                       % [Pa]
 range.XOUT            = [0.3 1.1];                                         % [-]
 range.MassFlux        = [500 2000];                                        % [kg/m^2/s]
-range.InletSubcooling = [0 2E6];                                           % [J/kg]
+range.InletSubcooling = [0 2].*1E6;                                        % [J/kg]
+
+%range.Pressure        = [0 20].*1E6;                                       % [Pa]
+%range.XOUT            = [0.1 1.1];                                         % [-]
+%range.MassFlux        = [0 8000];                                          % [kg/m^2/s]
+%range.InletSubcooling = [-1.3E6 0];                                        % [J/kg]
 
 runs = alldata.filterRuns(range);    
-%runs = runs(randperm(length(runs))); runs = runs(1:100);                    % Select limited amount of runs at random
+%runs = runs(randperm(length(runs))); runs = runs(1:100);                   % Select limited amount of runs at random
 %runs = [13197 13198 13199];       % ENTDEPR not near 1 (drop.W = 0)
 %runs = [14759 14787 14960 15010]; % MAXITER = 100
-%runs = 1;
 
 % Input models and options
 opts = alldata.inputOptions();                                             % Initilize input options structure
+opts.options.SSMAXITER = 50;                                               % Max number of steady-state iterations
 
 switch lower(solver)
     case 'threefield'
@@ -103,17 +108,21 @@ data.plotResults(solver,range)
 
 return
 
-AFL     = arrayfun(@(x) x.misc(end).AFL,data);
-WL0     = arrayfun(@(x) x.misc(1).WL,data);
-WL      = arrayfun(@(x) x.misc(end).WL,data);
-E0      = arrayfun(@(x) x.misc(end).E0,data);
-ENTDEPR = arrayfun(@(x) x.misc(end).ENTDEPR,data);
-MAXITER = arrayfun(@(x) x.misc(end).MAXITER,data);
-CPR     = arrayfun(@(x) x.misc(end).CPR,data);
+AFL      = arrayfun(@(x) x.misc(end).AFL,data);
+WL0      = arrayfun(@(x) x.misc(1).WL,data);
+WL       = arrayfun(@(x) x.misc(end).WL,data);
+E0       = arrayfun(@(x) x.misc(end).E0,data);
+ENTDEPR  = arrayfun(@(x) x.misc(end).ENTDEPR,data);
+MAXITER  = arrayfun(@(x) x.misc(end).MAXITER,data);
+CPR      = arrayfun(@(x) x.misc(end).CPR,data);
+NPOWITER = arrayfun(@(x) length(x.misc),data);
 
-runs(find(E0>1))'
-runs(find(ENTDEPR<0.9))'
-runs(find(MAXITER>10))'
+runs(find(E0>1))';
+runs(find(ENTDEPR<0.9))';
+runs(find(MAXITER>10))';
+runs(find(NPOWITER==maxIter+1))';
+WL(WL>WLMax);
+figure; hold all; grid on; plot(E0,ENTDEPR,'.')
 
 data(i).results.mixSolver.plotz(1);
 data(i).results.plotz(1);

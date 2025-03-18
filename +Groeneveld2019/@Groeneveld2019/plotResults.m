@@ -26,10 +26,12 @@ switch solver
         scatterplots(data,'WL',range)                                      % WL scatter plots
         scatterplots(data,'CPR',range)                                     % CPR scatter plots
         
-        WL0 = arrayfun(@(x) x.misc(1).WL,data);                            % Non-iterated value
-        CPR = arrayfun(@(x) x.misc(end).CPR,data);                         % Iterated value
+        WL0    = arrayfun(@(x) x.misc(1).WL,data);                         % Non-iterated WL value
+        CPR    = arrayfun(@(x) x.misc(end).CPR,data);                      % Iterated CPR value
+        POWER0 = arrayfun(@(x) x.misc(1).POWER,data);                      % Non-iterated power value
+        POWER  = arrayfun(@(x) x.misc(end).POWER,data);                    % Iterated power value
         
-        figure('name','Histograms & CPR vs MFF'); tiledlayout(1,3)
+        figure('name','Histograms & CPR vs MFF'); tiledlayout(2,2)
         nexttile; hold all; grid on;
         histogram(WL0,[-1:0.1:1])
         xlabel('Min film flow [kg/s/m]'); xlim([-1 1]);
@@ -43,10 +45,20 @@ switch solver
         nexttile; hold all; grid on;
         p = plot(WL0,CPR,'.');
         xlabel('Min film flow [kg/s/m]'); xlim([-1 1]);
-        ylabel('P/M critical power'); ylim([0 2]);
+        ylabel('P/M critical Power Ratio'); ylim([0 2]);
         plot(xlim,xlim+1,'k--','handleVisibility','off')
         set(gca,'fontSize',14)
-        adddatatip(data,p,'WL','CPR')
+        adddatatip(data,p,'Min film flow','CPR')
+        
+        nexttile; hold all; grid on;
+        p = plot(POWER0./1E3,POWER./1E3,'.');
+        xlabel('Measured Critical Power [kW]');
+        ylabel('Predicted Critical Power [kW]');
+        range = [0 max([xlim ylim])];
+        axis([range range]);
+        plot(xlim,xlim,'k--','handleVisibility','off')
+        set(gca,'fontSize',14)
+        adddatatip(data,p,'Measured','Predicted')
 end
 
 end
@@ -60,7 +72,7 @@ bc = @(param) arrayfun(@(x) x.entryData.(param),data);
 switch yparam
     case 'WL'
         yvalue = arrayfun(@(x) x.misc(1).(yparam),data);                   % Non-iterated value
-        %yvalue = arrayfun(@(x) x.misc(end).(yparam),data);                 % Iterated value (should be very near 0)
+        %yvalue = arrayfun(@(x) x.misc(end).(yparam),data);                 % Iterated value (should be within convergence criterions, i.e. near 0)
         yname = 'Min film flow';
         yunit = '[kg/s/m]';
         yrange = [-1.0 1.0]; yRef = 0;
@@ -71,9 +83,9 @@ switch yparam
         yrange = [0.0 2.0]; yRef = 1;
 end
 
-param = {'Pressure','MassFlux','X','Diameter','Length','LD','AFL','E0'};
-name  = {'Pressure','Mass Flux','X outlet','Diameter','Length','L/D','Annular flow length','E0'};
-unit  = {'Pa','kg/s/m^2','-','m','m','-','-','m','-'};
+param = {'Pressure','MassFlux','X','InletSubcooling','Diameter','Length','LD','AFL','E0'};
+name  = {'Pressure','Mass Flux','X outlet','Inlet subcooling','Diameter','Length','L/D','Annular flow length','E0'};
+unit  = {'Pa','kg/s/m^2','-','J/kg','m','m','-','m','-'};
 figure('name',[yname ' scatter plots'])
 for k = 1:length(param)
     nexttile; hold all; grid on;
