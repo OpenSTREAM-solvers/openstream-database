@@ -47,7 +47,7 @@ classdef Dataset < handle
     end
 
     
-    methods (Access=protected)
+    methods
         
         function obj = Dataset(entryID, opts)
             %DATASET Construct an instance of the dataset interface
@@ -71,7 +71,12 @@ classdef Dataset < handle
             end
 
             % Run the preprocessor to prepare dataset
-            obj.preprocessor();
+            try
+                obj.preprocessor();
+            catch
+                disp('No database file was read to create the dataset object')
+                %disp('Inputs must instead be specified using lightWeightEntryData or using the options structure')
+            end
 
             % return if entryID == -1
             if isnumeric(entryID) && entryID == -1
@@ -91,6 +96,10 @@ classdef Dataset < handle
             % ...
 
         end
+        
+    end
+    
+    methods (Access=protected)
 
         function makeCaseFolder(obj, datasetPath)
         %MAKECASEFOLDER Create case folder within the +inputs folder in a
