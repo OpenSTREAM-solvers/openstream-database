@@ -5,15 +5,14 @@
 % openstream and openstream-database must be in the MATLAB search path
 
 clear variables
-close all;
-tic
+%close all;
 
 %solver = 'Mixture';
 solver = 'ThreeField';
 
 % Power iteration settings
-%poweriter = false;
-poweriter = true;
+poweriter = false;
+%poweriter = true;
 WLMax     = 1E-4; 
 maxIter   = 20;
 
@@ -34,7 +33,8 @@ range.InletSubcooling = [0 2].*1E6;                                        % [J/
 %range.InletSubcooling = [-1.3E6 0];                                        % [J/kg]
 
 runs = alldata.filterRuns(range);    
-%runs = runs(randperm(length(runs))); runs = runs(1:100);                   % Select limited amount of runs at random
+runs = runs(1:8*4); 
+%runs = runs(randperm(length(runs))); runs = runs(1:100);                  % Select limited amount of runs at random
 %runs = [13197 13198 13199];       % ENTDEPR not near 1 (drop.W = 0)
 %runs = [14759 14787 14960 15010]; % MAXITER = 100
 
@@ -58,7 +58,10 @@ inputSetOpts = {'overwriteSessionFiles', true, 'LOGMODE', 'BOTH'};
 %inputSetOpts = {'overwriteSessionFiles', true, 'LOGMODE', 'NONE'};
 saveResultsToFile = false;
 
-% Python related warning for parallel runs caused by "data.results = tpsolver;" in runCase  !!! Why? !!!
+
+tic
+% Python related warning for parallel runs caused by "data.results = tpsolver;" in runCase  Why???
+% Parralel runs significantly slower as copared to serial runs, why???
 % data(i).entryID not set for parrallel runs
 
 %parfor i = 1:length(runs)
@@ -67,6 +70,7 @@ for i = 1:length(runs)
     % Initialize
     entryData = alldata.dataset(runs(i),:);
     data(i) = Groeneveld2019(runs(i),'isLightWeight',true,'lightWeightEntryData',entryData);
+    %data(i) = Groeneveld2019(runs(i));                                     % Slow, load the entire dataset each iteration
     data(i).makeInputFiles(opts);
     
     % Run case
