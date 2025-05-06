@@ -62,14 +62,17 @@ saveResultsToFile = false;
 tic
 % Python related warning for parallel runs caused by "data.results = tpsolver;" in runCase  Why???
 % Parralel runs significantly slower as copared to serial runs, why???
-% data(i).entryID not set for parrallel runs
 
-%parfor i = 1:length(runs)
-for i = 1:length(runs)
+% Assign lightweight entryData to array first to avoid broadcasting alldata
+for i = length(runs):-1:1
+    entryData{i} = alldata.dataset(runs(i),:);
+end
+
+parfor i = 1:length(runs)
+%for i = 1:length(runs)
     
     % Initialize
-    entryData = alldata.dataset(runs(i),:);
-    data(i) = Groeneveld2019(runs(i),'isLightWeight',true,'lightWeightEntryData',entryData);
+    data(i) = Groeneveld2019(runs(i),'isLightWeight',true,'lightWeightEntryData',entryData{i});
     %data(i) = Groeneveld2019(runs(i));                                     % Slow, load the entire dataset each iteration
     data(i).makeInputFiles(opts);
     

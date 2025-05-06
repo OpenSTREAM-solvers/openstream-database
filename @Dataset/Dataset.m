@@ -39,6 +39,10 @@ classdef Dataset < handle
         misc
     end
 
+    properties (Access = private, Transient)
+        isLoadingFromFile   = true
+    end
+
     properties (Dependent)
         modelFilePath
         optionsFilePath
@@ -57,6 +61,11 @@ classdef Dataset < handle
                 opts.isLightWeight = false;
                 opts.lightWeightEntryData = {};
             end
+            
+            % When the constructor is called, set loading from file to
+            % false.
+            obj.isLoadingFromFile = false;
+            
 
             % Set isLightWeight variable. If true, the full dataset will
             % not be read.
@@ -163,6 +172,16 @@ classdef Dataset < handle
         function set.entryID(obj, entryID)
         %SET.ENTRYID Validates and sets entryID
         %
+            % Check if obj is loaded from file. In this case, assume
+            % entryID is correct. This is implemented to accomodate load()
+            % of object which is used in parfor loops. Since validateEntry
+            % does not result correctly, it will be bypassed for now.
+            %   TODO: Find more elegant solution to this.
+            if obj.isLoadingFromFile
+                obj.entryID = entryID;
+                return;
+            end
+
             obj.validateEntry(entryID);
             obj.entryID = entryID;
 
