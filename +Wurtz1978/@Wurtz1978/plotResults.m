@@ -180,7 +180,7 @@ switch lower(param)
             
             case 'fourfield'
                 
-                Lw_calc = arrayfun(@(x) first(x.results.film.wave.AMP(NZ)),data);
+                Lw_calc = arrayfun(@(x) first(x.results.film.wave.AMPLITUDE(NZ)),data);
                 
                 Rev = arrayfun(@(x) x.results.mixSolver.mixture.vapor.RE(end),data);   % [-] Vapor Reynolds number
                 
