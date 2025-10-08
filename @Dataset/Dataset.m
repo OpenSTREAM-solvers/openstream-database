@@ -223,11 +223,18 @@ classdef Dataset < handle
             if ~data.isLightWeight
                 datastruct   = readstruct(data.path);
                 data.dataset = struct2table(datastruct.dataset);
-                
+
+                % The following option would be simpler but the table is not loaded in a convenient format
+                % data.dataset = readtable(data.path); 
+
                 % Convert strings to doubles when relevant
                 ind = find(ismember(table2cell(varfun(@class,data.dataset)),'string')); % Find strings
-                ind = ind(~isnan(cellfun(@str2double,data.dataset{1,ind})));            % Identify them as doubles
-                data.dataset = convertvars(data.dataset,ind,'double');                  % Convert
+                vN = data.dataset.Properties.VariableNames;
+                datatable = readtable(data.path);
+                for k = 1:length(ind)
+                    data.dataset.(vN{ind(k)}) = datatable.(vN{ind(k)});    % Convert using datatable
+                end
+
             end
             
         end
