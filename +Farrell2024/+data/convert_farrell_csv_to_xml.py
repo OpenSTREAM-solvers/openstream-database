@@ -97,7 +97,14 @@ def build_dataset_row(row, index):
             dataset[new_name] = clean_param_name(raw_value)
             dataset["TestName"] = clean_param_name(raw_value)
         elif new_name in {"Perimeter", "WallMesh", "WallPower"}:
-            dataset[new_name] = parse_array(raw_value)
+            if new_name == "Perimeter":
+                dataset[new_name] = ['0.072', '0.024']
+            elif new_name == "WallMesh":
+                dataset[new_name] = ['0.21', '0.21']
+            elif new_name == "WallPower":
+                dataset[new_name] = ['1', '1', '0', '0']
+        elif new_name == "Length":
+            dataset[new_name] = '0.42'
         else:
             parsed = parse_value(raw_value)
             dataset[new_name] = str(parsed) if parsed is not None else ""
@@ -123,7 +130,7 @@ def write_xml(rows, xml_path):
 
     pretty_print_xml(root)
     tree = ET.ElementTree(root)
-    tree.write(xml_path, encoding="utf-8", xml_declaration=True)
+    tree.write(str(xml_path), encoding="utf-8", xml_declaration=True)
 
 
 def load_csv(csv_path):
@@ -154,12 +161,14 @@ def main(argv=None):
     if argv is None:
         argv = sys.argv[1:]
 
-    if len(argv) not in {1, 2}:
-        print("Usage: python convert_farrell_csv_to_xml.py <input.csv> [<output.xml>]")
+    script_dir = Path(__file__).parent
+
+    if len(argv) not in {0, 1, 2}:
+        print("Usage: python convert_farrell_csv_to_xml.py [<input.csv>] [<output.xml>]")
         sys.exit(1)
 
-    csv_path = Path(argv[0])
-    xml_path = Path(argv[1]) if len(argv) == 2 else csv_path.with_name("Farrell2024.xml")
+    csv_path = Path(argv[0]) if len(argv) >= 1 else script_dir / "PreObsFilmThicknessComparison.csv"
+    xml_path = Path(argv[1]) if len(argv) == 2 else script_dir.parent / "+src" / "Farrell2024.xml"
 
     rows = load_csv(csv_path)
     converted = [build_dataset_row(row, idx + 1) for idx, row in enumerate(rows)]

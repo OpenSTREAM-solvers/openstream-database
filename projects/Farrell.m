@@ -23,7 +23,7 @@ runs = 1:length(TestName);
 % Input models and options
 opts = alldata.inputOptions();                                             % Initilize input options structure
 
-opts.model.OAFENTRAINED  = 'RATIO';                                        % Entrained model at onset of annular flow
+opts.model.OAFENTRAINED  = 'EQUILIBRIUM';                                        % Entrained model at onset of annular flow
 opts.model.OAFDROPRATIO  =  0.1;                                           % Ratio of Drops to film at OAF
 opts.model.DEPOSITION    = 'OKAWA';                                        % Drop deposition model
 opts.model.ENTRAINMENT   = 'OKAWAMFVAL';                                   % Film entrainment model
@@ -33,7 +33,6 @@ opts.model.EQSTROUHAL    = 'MFVAL';                                        % Equ
 opts.model.OAFFILMSPLIT  = 'RATIO';                                        % OAF film split
 opts.model.OAFBASERATIO  =  1;                                             % Base film /total film ratio at OAF
 opts.model.MOMENTFILM    = 'EQUILIBRIUMS';                                 % Film momentum conservation model
-opts.model.VAPORFRIC     = 'WALLISTHICK';                                  %Vapor Friction Model
 
 
 % 'LOGMODE': NONE, LOGTOCONSOLEONLY, LOGTOFILEONLY, BOTH
