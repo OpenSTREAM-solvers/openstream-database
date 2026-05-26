@@ -2,1156 +2,1441 @@
 <struct>
     <dataset>
         <TestID>1</TestID>
+        <ParamName>PARAM01_01</ParamName>
+        <TestName>PARAM01_01</TestName>
+        <MassFlow>0.055276603</MassFlow>
+        <MassFlux>127.9551</MassFlux>
+        <InletEnthalpy>354385.0</InletEnthalpy>
+        <InletQuality>0.6386</InletQuality>
+        <HeatFlux>0</HeatFlux>
+        <Power>0.0</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
+        <Area>0.000432</Area>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
+        <WallPower>1</WallPower>
+        <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
+        <Fluid>R245fa</Fluid>
+        <MeasuredFilmThickness>0.000181609</MeasuredFilmThickness>
+    </dataset>
+    <dataset>
+        <TestID>2</TestID>
+        <ParamName>PARAM01_02</ParamName>
+        <TestName>PARAM01_02</TestName>
+        <MassFlow>0.055276603</MassFlow>
+        <MassFlux>127.9551</MassFlux>
+        <InletEnthalpy>354385.0</InletEnthalpy>
+        <InletQuality>0.6386</InletQuality>
+        <HeatFlux>12900000</HeatFlux>
+        <Power>390.096</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
+        <Area>0.000432</Area>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
+        <WallPower>1</WallPower>
+        <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
+        <Fluid>R245fa</Fluid>
+        <MeasuredFilmThickness>0.000183093</MeasuredFilmThickness>
+    </dataset>
+    <dataset>
+        <TestID>3</TestID>
+        <ParamName>PARAM01_03</ParamName>
+        <TestName>PARAM01_03</TestName>
+        <MassFlow>0.055276603</MassFlow>
+        <MassFlux>127.9551</MassFlux>
+        <InletEnthalpy>354385.0</InletEnthalpy>
+        <InletQuality>0.6386</InletQuality>
+        <HeatFlux>26000000</HeatFlux>
+        <Power>786.24</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
+        <Area>0.000432</Area>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
+        <WallPower>1</WallPower>
+        <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
+        <Fluid>R245fa</Fluid>
+        <MeasuredFilmThickness>0.000176077</MeasuredFilmThickness>
+    </dataset>
+    <dataset>
+        <TestID>4</TestID>
+        <ParamName>PARAM01_04</ParamName>
+        <TestName>PARAM01_04</TestName>
+        <MassFlow>0.055276603</MassFlow>
+        <MassFlux>127.9551</MassFlux>
+        <InletEnthalpy>354385.0</InletEnthalpy>
+        <InletQuality>0.6386</InletQuality>
+        <HeatFlux>26600000</HeatFlux>
+        <Power>804.384</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
+        <Area>0.000432</Area>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
+        <WallPower>1</WallPower>
+        <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
+        <Fluid>R245fa</Fluid>
+        <MeasuredFilmThickness>0.000179264</MeasuredFilmThickness>
+    </dataset>
+    <dataset>
+        <TestID>5</TestID>
         <ParamName>PARAM02_01</ParamName>
         <TestName>PARAM02_01</TestName>
         <MassFlow>0.055296518</MassFlow>
         <MassFlux>128.0012</MassFlux>
         <InletEnthalpy>369974.0</InletEnthalpy>
         <InletQuality>0.7206</InletQuality>
-        <HeatFlux>0.0</HeatFlux>
+        <HeatFlux>0</HeatFlux>
         <Power>0.0</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.000165395</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>2</TestID>
+        <TestID>6</TestID>
         <ParamName>PARAM02_02</ParamName>
         <TestName>PARAM02_02</TestName>
         <MassFlow>0.055296518</MassFlow>
         <MassFlux>128.0012</MassFlux>
         <InletEnthalpy>369974.0</InletEnthalpy>
         <InletQuality>0.7206</InletQuality>
-        <HeatFlux>12870.0</HeatFlux>
-        <Power>373.43592</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>12900000</HeatFlux>
+        <Power>390.096</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.000147791</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>3</TestID>
+        <TestID>7</TestID>
         <ParamName>PARAM02_03</ParamName>
         <TestName>PARAM02_03</TestName>
         <MassFlow>0.055296518</MassFlow>
         <MassFlux>128.0012</MassFlux>
         <InletEnthalpy>369974.0</InletEnthalpy>
         <InletQuality>0.7206</InletQuality>
-        <HeatFlux>20737.0</HeatFlux>
-        <Power>601.704792</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>20700000</HeatFlux>
+        <Power>625.968</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.000140586</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>4</TestID>
+        <TestID>8</TestID>
         <ParamName>PARAM02_04</ParamName>
         <TestName>PARAM02_04</TestName>
         <MassFlow>0.055296518</MassFlow>
         <MassFlux>128.0012</MassFlux>
         <InletEnthalpy>369974.0</InletEnthalpy>
         <InletQuality>0.7206</InletQuality>
-        <HeatFlux>23360.0</HeatFlux>
-        <Power>677.8137599999999</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>23400000</HeatFlux>
+        <Power>707.616</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.000128319</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>5</TestID>
+        <TestID>9</TestID>
         <ParamName>PARAM03_01</ParamName>
         <TestName>PARAM03_01</TestName>
         <MassFlow>0.055297642</MassFlow>
         <MassFlux>128.0038</MassFlux>
         <InletEnthalpy>385391.0</InletEnthalpy>
         <InletQuality>0.8017</InletQuality>
-        <HeatFlux>0.0</HeatFlux>
+        <HeatFlux>0</HeatFlux>
         <Power>0.0</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.000136508</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>6</TestID>
+        <TestID>10</TestID>
         <ParamName>PARAM03_02</ParamName>
         <TestName>PARAM03_02</TestName>
         <MassFlow>0.055297642</MassFlow>
         <MassFlux>128.0038</MassFlux>
         <InletEnthalpy>385391.0</InletEnthalpy>
         <InletQuality>0.8017</InletQuality>
-        <HeatFlux>12942.0</HeatFlux>
-        <Power>375.52507199999997</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>12900000</HeatFlux>
+        <Power>390.096</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.00011874</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>7</TestID>
+        <TestID>11</TestID>
         <ParamName>PARAM03_03</ParamName>
         <TestName>PARAM03_03</TestName>
         <MassFlow>0.055297642</MassFlow>
         <MassFlux>128.0038</MassFlux>
         <InletEnthalpy>385391.0</InletEnthalpy>
         <InletQuality>0.8017</InletQuality>
-        <HeatFlux>15569.0</HeatFlux>
-        <Power>451.750104</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>15600000</HeatFlux>
+        <Power>471.744</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.000117469</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>8</TestID>
+        <TestID>12</TestID>
         <ParamName>PARAM03_04</ParamName>
         <TestName>PARAM03_04</TestName>
         <MassFlow>0.055297642</MassFlow>
         <MassFlux>128.0038</MassFlux>
         <InletEnthalpy>385391.0</InletEnthalpy>
         <InletQuality>0.8017</InletQuality>
-        <HeatFlux>16868.0</HeatFlux>
-        <Power>489.44188799999995</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>16900000</HeatFlux>
+        <Power>511.056</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.000112574</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>9</TestID>
+        <TestID>13</TestID>
         <ParamName>PARAM04_01</ParamName>
         <TestName>PARAM04_01</TestName>
         <MassFlow>0.055306152</MassFlow>
         <MassFlux>128.0235</MassFlux>
         <InletEnthalpy>400504.0</InletEnthalpy>
         <InletQuality>0.8812</InletQuality>
-        <HeatFlux>0.0</HeatFlux>
+        <HeatFlux>0</HeatFlux>
         <Power>0.0</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.000117737</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>10</TestID>
+        <TestID>14</TestID>
         <ParamName>PARAM04_02</ParamName>
         <TestName>PARAM04_02</TestName>
         <MassFlow>0.055306152</MassFlow>
         <MassFlux>128.0235</MassFlux>
         <InletEnthalpy>400504.0</InletEnthalpy>
         <InletQuality>0.8812</InletQuality>
-        <HeatFlux>12857.0</HeatFlux>
-        <Power>373.05871199999996</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>12900000</HeatFlux>
+        <Power>390.096</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.000100109</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>11</TestID>
+        <TestID>15</TestID>
         <ParamName>PARAM04_03</ParamName>
         <TestName>PARAM04_03</TestName>
         <MassFlow>0.055306152</MassFlow>
         <MassFlux>128.0235</MassFlux>
         <InletEnthalpy>400504.0</InletEnthalpy>
         <InletQuality>0.8812</InletQuality>
-        <HeatFlux>14138.0</HeatFlux>
-        <Power>410.228208</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>14100000</HeatFlux>
+        <Power>426.384</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>9.51e-05</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>12</TestID>
+        <TestID>16</TestID>
         <ParamName>PARAM04_04</ParamName>
         <TestName>PARAM04_04</TestName>
         <MassFlow>0.055306152</MassFlow>
         <MassFlux>128.0235</MassFlux>
         <InletEnthalpy>400504.0</InletEnthalpy>
         <InletQuality>0.8812</InletQuality>
-        <HeatFlux>15397.0</HeatFlux>
-        <Power>446.759352</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>15400000</HeatFlux>
+        <Power>465.696</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>9.43e-05</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>13</TestID>
+        <TestID>17</TestID>
         <ParamName>PARAM05_01</ParamName>
         <TestName>PARAM05_01</TestName>
         <MassFlow>0.056299579</MassFlow>
         <MassFlux>130.3231</MassFlux>
         <InletEnthalpy>415370.0</InletEnthalpy>
         <InletQuality>0.9594</InletQuality>
-        <HeatFlux>0.0</HeatFlux>
+        <HeatFlux>0</HeatFlux>
         <Power>0.0</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>9.54e-05</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>14</TestID>
+        <TestID>18</TestID>
         <ParamName>PARAM05_02</ParamName>
         <TestName>PARAM05_02</TestName>
         <MassFlow>0.056299579</MassFlow>
         <MassFlux>130.3231</MassFlux>
         <InletEnthalpy>415370.0</InletEnthalpy>
         <InletQuality>0.9594</InletQuality>
-        <HeatFlux>7602.2</HeatFlux>
-        <Power>220.58543519999998</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>7600000</HeatFlux>
+        <Power>229.824</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>7.96e-05</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>15</TestID>
+        <TestID>19</TestID>
         <ParamName>PARAM05_03</ParamName>
         <TestName>PARAM05_03</TestName>
         <MassFlow>0.056299579</MassFlow>
         <MassFlux>130.3231</MassFlux>
         <InletEnthalpy>415370.0</InletEnthalpy>
         <InletQuality>0.9594</InletQuality>
-        <HeatFlux>10111.0</HeatFlux>
-        <Power>293.38077599999997</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>10100000</HeatFlux>
+        <Power>305.424</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>6.9e-05</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>16</TestID>
+        <TestID>20</TestID>
         <ParamName>PARAM05_04</ParamName>
         <TestName>PARAM05_04</TestName>
         <MassFlow>0.056299579</MassFlow>
         <MassFlux>130.3231</MassFlux>
         <InletEnthalpy>415370.0</InletEnthalpy>
         <InletQuality>0.9594</InletQuality>
-        <HeatFlux>12552.0</HeatFlux>
-        <Power>364.208832</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>12600000</HeatFlux>
+        <Power>381.024</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>6.39e-05</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>17</TestID>
+        <TestID>21</TestID>
         <ParamName>PARAM06_01</ParamName>
         <TestName>PARAM06_01</TestName>
         <MassFlow>0.0642816</MassFlow>
         <MassFlux>148.8</MassFlux>
         <InletEnthalpy>355602.0</InletEnthalpy>
         <InletQuality>0.645</InletQuality>
-        <HeatFlux>0.0</HeatFlux>
+        <HeatFlux>0</HeatFlux>
         <Power>0.0</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.000159369</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>18</TestID>
+        <TestID>22</TestID>
         <ParamName>PARAM06_02</ParamName>
         <TestName>PARAM06_02</TestName>
         <MassFlow>0.0642816</MassFlow>
         <MassFlux>148.8</MassFlux>
         <InletEnthalpy>355602.0</InletEnthalpy>
         <InletQuality>0.645</InletQuality>
-        <HeatFlux>13125.0</HeatFlux>
-        <Power>380.835</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>13100000</HeatFlux>
+        <Power>396.144</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.000142415</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>19</TestID>
+        <TestID>23</TestID>
         <ParamName>PARAM06_03</ParamName>
         <TestName>PARAM06_03</TestName>
         <MassFlow>0.0642816</MassFlow>
         <MassFlux>148.8</MassFlux>
         <InletEnthalpy>355602.0</InletEnthalpy>
         <InletQuality>0.645</InletQuality>
-        <HeatFlux>18384.0</HeatFlux>
-        <Power>533.430144</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>18400000</HeatFlux>
+        <Power>556.416</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.000129309</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>20</TestID>
+        <TestID>24</TestID>
         <ParamName>PARAM06_04</ParamName>
         <TestName>PARAM06_04</TestName>
         <MassFlow>0.0642816</MassFlow>
         <MassFlux>148.8</MassFlux>
         <InletEnthalpy>355602.0</InletEnthalpy>
         <InletQuality>0.645</InletQuality>
-        <HeatFlux>22300.0</HeatFlux>
-        <Power>647.0568000000001</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>22300000</HeatFlux>
+        <Power>674.352</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.00012746</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>21</TestID>
+        <TestID>25</TestID>
         <ParamName>PARAM07_01</ParamName>
         <TestName>PARAM07_01</TestName>
         <MassFlow>0.064282594</MassFlow>
         <MassFlux>148.8023</MassFlux>
         <InletEnthalpy>369821.0</InletEnthalpy>
         <InletQuality>0.7198</InletQuality>
-        <HeatFlux>0.0</HeatFlux>
+        <HeatFlux>0</HeatFlux>
         <Power>0.0</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.000139622</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>22</TestID>
+        <TestID>26</TestID>
         <ParamName>PARAM07_02</ParamName>
         <TestName>PARAM07_02</TestName>
         <MassFlow>0.064282594</MassFlow>
         <MassFlux>148.8023</MassFlux>
         <InletEnthalpy>369821.0</InletEnthalpy>
         <InletQuality>0.7198</InletQuality>
-        <HeatFlux>13114.0</HeatFlux>
-        <Power>380.51582399999995</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>13100000</HeatFlux>
+        <Power>396.144</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.000119315</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>23</TestID>
+        <TestID>27</TestID>
+        <ParamName>PARAM07_03</ParamName>
+        <TestName>PARAM07_03</TestName>
+        <MassFlow>0.064282594</MassFlow>
+        <MassFlux>148.8023</MassFlux>
+        <InletEnthalpy>369821.0</InletEnthalpy>
+        <InletQuality>0.7198</InletQuality>
+        <HeatFlux>18400000</HeatFlux>
+        <Power>556.416</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
+        <Area>0.000432</Area>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
+        <WallPower>1</WallPower>
+        <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
+        <Fluid>R245fa</Fluid>
+        <MeasuredFilmThickness>0.000121718</MeasuredFilmThickness>
+    </dataset>
+    <dataset>
+        <TestID>28</TestID>
         <ParamName>PARAM07_04</ParamName>
         <TestName>PARAM07_04</TestName>
         <MassFlow>0.064282594</MassFlow>
         <MassFlux>148.8023</MassFlux>
         <InletEnthalpy>369821.0</InletEnthalpy>
         <InletQuality>0.7198</InletQuality>
-        <HeatFlux>21000.0</HeatFlux>
-        <Power>609.3359999999999</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>21000000</HeatFlux>
+        <Power>635.04</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.000114428</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>24</TestID>
+        <TestID>29</TestID>
         <ParamName>PARAM08_01</ParamName>
         <TestName>PARAM08_01</TestName>
         <MassFlow>0.064289894</MassFlow>
         <MassFlux>148.8192</MassFlux>
         <InletEnthalpy>385011.0</InletEnthalpy>
         <InletQuality>0.7997</InletQuality>
-        <HeatFlux>0.0</HeatFlux>
+        <HeatFlux>0</HeatFlux>
         <Power>0.0</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.000120362</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>25</TestID>
+        <TestID>30</TestID>
         <ParamName>PARAM08_02</ParamName>
         <TestName>PARAM08_02</TestName>
         <MassFlow>0.064289894</MassFlow>
         <MassFlux>148.8192</MassFlux>
         <InletEnthalpy>385011.0</InletEnthalpy>
         <InletQuality>0.7997</InletQuality>
-        <HeatFlux>13105.0</HeatFlux>
-        <Power>380.25468</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>13100000</HeatFlux>
+        <Power>396.144</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.00010671</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>26</TestID>
+        <TestID>31</TestID>
         <ParamName>PARAM08_03</ParamName>
         <TestName>PARAM08_03</TestName>
         <MassFlow>0.064289894</MassFlow>
         <MassFlux>148.8192</MassFlux>
         <InletEnthalpy>385011.0</InletEnthalpy>
         <InletQuality>0.7997</InletQuality>
-        <HeatFlux>15739.0</HeatFlux>
-        <Power>456.682824</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>15700000</HeatFlux>
+        <Power>474.768</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>9.76e-05</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>27</TestID>
+        <TestID>32</TestID>
         <ParamName>PARAM08_04</ParamName>
         <TestName>PARAM08_04</TestName>
         <MassFlow>0.064289894</MassFlow>
         <MassFlux>148.8192</MassFlux>
         <InletEnthalpy>385011.0</InletEnthalpy>
         <InletQuality>0.7997</InletQuality>
-        <HeatFlux>18366.0</HeatFlux>
-        <Power>532.907856</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>18400000</HeatFlux>
+        <Power>556.416</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>9.61e-05</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>28</TestID>
+        <TestID>33</TestID>
         <ParamName>PARAM09_01</ParamName>
         <TestName>PARAM09_01</TestName>
         <MassFlow>0.064282032</MassFlow>
         <MassFlux>148.801</MassFlux>
         <InletEnthalpy>399991.0</InletEnthalpy>
         <InletQuality>0.8785</InletQuality>
-        <HeatFlux>0.0</HeatFlux>
+        <HeatFlux>0</HeatFlux>
         <Power>0.0</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.000105013</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>29</TestID>
+        <TestID>34</TestID>
         <ParamName>PARAM09_02</ParamName>
         <TestName>PARAM09_02</TestName>
         <MassFlow>0.064282032</MassFlow>
         <MassFlux>148.801</MassFlux>
         <InletEnthalpy>399991.0</InletEnthalpy>
         <InletQuality>0.8785</InletQuality>
-        <HeatFlux>10455.0</HeatFlux>
-        <Power>303.36228000000006</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>10500000</HeatFlux>
+        <Power>317.52</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>9.21e-05</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>30</TestID>
+        <TestID>35</TestID>
         <ParamName>PARAM09_03</ParamName>
         <TestName>PARAM09_03</TestName>
         <MassFlow>0.064282032</MassFlow>
         <MassFlux>148.801</MassFlux>
         <InletEnthalpy>399991.0</InletEnthalpy>
         <InletQuality>0.8785</InletQuality>
-        <HeatFlux>13073.0</HeatFlux>
-        <Power>379.32616800000005</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>13100000</HeatFlux>
+        <Power>396.144</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>8.83e-05</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>31</TestID>
+        <TestID>36</TestID>
         <ParamName>PARAM09_04</ParamName>
         <TestName>PARAM09_04</TestName>
         <MassFlow>0.064282032</MassFlow>
         <MassFlux>148.801</MassFlux>
         <InletEnthalpy>399991.0</InletEnthalpy>
         <InletQuality>0.8785</InletQuality>
-        <HeatFlux>15635.0</HeatFlux>
-        <Power>453.66516</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>15600000</HeatFlux>
+        <Power>471.744</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>8.21e-05</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>32</TestID>
+        <TestID>37</TestID>
         <ParamName>PARAM10_01</ParamName>
         <TestName>PARAM10_01</TestName>
         <MassFlow>0.06328908</MassFlow>
         <MassFlux>146.5025</MassFlux>
         <InletEnthalpy>415009.0</InletEnthalpy>
         <InletQuality>0.9575</InletQuality>
-        <HeatFlux>0.0</HeatFlux>
+        <HeatFlux>0</HeatFlux>
         <Power>0.0</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>8.38e-05</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>33</TestID>
+        <TestID>38</TestID>
         <ParamName>PARAM10_02</ParamName>
         <TestName>PARAM10_02</TestName>
         <MassFlow>0.06328908</MassFlow>
         <MassFlux>146.5025</MassFlux>
         <InletEnthalpy>415009.0</InletEnthalpy>
         <InletQuality>0.9575</InletQuality>
-        <HeatFlux>2540.3</HeatFlux>
-        <Power>73.7093448</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>2540000</HeatFlux>
+        <Power>76.8096</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>8.19e-05</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>34</TestID>
+        <TestID>39</TestID>
         <ParamName>PARAM10_03</ParamName>
         <TestName>PARAM10_03</TestName>
         <MassFlow>0.06328908</MassFlow>
         <MassFlux>146.5025</MassFlux>
         <InletEnthalpy>415009.0</InletEnthalpy>
         <InletQuality>0.9575</InletQuality>
-        <HeatFlux>8805.2</HeatFlux>
-        <Power>255.49168320000004</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>8810000</HeatFlux>
+        <Power>266.4144</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>7.04e-05</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>35</TestID>
+        <TestID>40</TestID>
         <ParamName>PARAM10_04</ParamName>
         <TestName>PARAM10_04</TestName>
         <MassFlow>0.06328908</MassFlow>
         <MassFlux>146.5025</MassFlux>
         <InletEnthalpy>415009.0</InletEnthalpy>
         <InletQuality>0.9575</InletQuality>
-        <HeatFlux>10008.0</HeatFlux>
-        <Power>290.392128</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>10000000</HeatFlux>
+        <Power>302.4</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>7.01e-05</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>36</TestID>
+        <TestID>41</TestID>
         <ParamName>PARAM11_01</ParamName>
         <TestName>PARAM11_01</TestName>
         <MassFlow>0.072249926</MassFlow>
         <MassFlux>167.2452</MassFlux>
         <InletEnthalpy>353606.0</InletEnthalpy>
         <InletQuality>0.6345</InletQuality>
-        <HeatFlux>0.0</HeatFlux>
+        <HeatFlux>0</HeatFlux>
         <Power>0.0</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.000147186</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>37</TestID>
+        <TestID>42</TestID>
         <ParamName>PARAM11_02</ParamName>
         <TestName>PARAM11_02</TestName>
         <MassFlow>0.072249926</MassFlow>
         <MassFlux>167.2452</MassFlux>
         <InletEnthalpy>353606.0</InletEnthalpy>
         <InletQuality>0.6345</InletQuality>
-        <HeatFlux>13028.0</HeatFlux>
-        <Power>378.020448</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>13000000</HeatFlux>
+        <Power>393.12</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.000128665</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>38</TestID>
+        <TestID>43</TestID>
         <ParamName>PARAM11_03</ParamName>
         <TestName>PARAM11_03</TestName>
         <MassFlow>0.072249926</MassFlow>
         <MassFlux>167.2452</MassFlux>
         <InletEnthalpy>353606.0</InletEnthalpy>
         <InletQuality>0.6345</InletQuality>
-        <HeatFlux>26165.0</HeatFlux>
-        <Power>759.20364</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>26200000</HeatFlux>
+        <Power>792.288</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.000111675</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>39</TestID>
+        <TestID>44</TestID>
         <ParamName>PARAM11_04</ParamName>
         <TestName>PARAM11_04</TestName>
         <MassFlow>0.072249926</MassFlow>
         <MassFlux>167.2452</MassFlux>
         <InletEnthalpy>353606.0</InletEnthalpy>
         <InletQuality>0.6345</InletQuality>
-        <HeatFlux>28797.0</HeatFlux>
-        <Power>835.573752</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>28800000</HeatFlux>
+        <Power>870.912</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.000108197</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>40</TestID>
+        <TestID>45</TestID>
         <ParamName>PARAM12_01</ParamName>
         <TestName>PARAM12_01</TestName>
         <MassFlow>0.072255542</MassFlow>
         <MassFlux>167.2582</MassFlux>
         <InletEnthalpy>367160.0</InletEnthalpy>
         <InletQuality>0.7058</InletQuality>
-        <HeatFlux>0.0</HeatFlux>
+        <HeatFlux>0</HeatFlux>
         <Power>0.0</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.000125429</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>41</TestID>
+        <TestID>46</TestID>
         <ParamName>PARAM12_02</ParamName>
         <TestName>PARAM12_02</TestName>
         <MassFlow>0.072255542</MassFlow>
         <MassFlux>167.2582</MassFlux>
         <InletEnthalpy>367160.0</InletEnthalpy>
         <InletQuality>0.7058</InletQuality>
-        <HeatFlux>13050.0</HeatFlux>
-        <Power>378.6588</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>13000000</HeatFlux>
+        <Power>393.12</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.000113292</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>42</TestID>
+        <TestID>47</TestID>
         <ParamName>PARAM12_03</ParamName>
         <TestName>PARAM12_03</TestName>
         <MassFlow>0.072255542</MassFlow>
         <MassFlux>167.2582</MassFlux>
         <InletEnthalpy>367160.0</InletEnthalpy>
         <InletQuality>0.7058</InletQuality>
-        <HeatFlux>23575.0</HeatFlux>
-        <Power>684.0522</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>23600000</HeatFlux>
+        <Power>713.664</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.00010514</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>43</TestID>
+        <TestID>48</TestID>
         <ParamName>PARAM12_04</ParamName>
         <TestName>PARAM12_04</TestName>
         <MassFlow>0.072255542</MassFlow>
         <MassFlux>167.2582</MassFlux>
         <InletEnthalpy>367160.0</InletEnthalpy>
         <InletQuality>0.7058</InletQuality>
-        <HeatFlux>24886.0</HeatFlux>
-        <Power>722.092176</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>24900000</HeatFlux>
+        <Power>752.976</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.000101892</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>44</TestID>
+        <TestID>49</TestID>
         <ParamName>PARAM13_01</ParamName>
         <TestName>PARAM13_01</TestName>
         <MassFlow>0.07226699</MassFlow>
         <MassFlux>167.2847</MassFlux>
         <InletEnthalpy>382235.0</InletEnthalpy>
         <InletQuality>0.7851</InletQuality>
-        <HeatFlux>0.0</HeatFlux>
+        <HeatFlux>0</HeatFlux>
         <Power>0.0</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>0.000108825</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>45</TestID>
+        <TestID>50</TestID>
         <ParamName>PARAM13_02</ParamName>
         <TestName>PARAM13_02</TestName>
         <MassFlow>0.07226699</MassFlow>
         <MassFlux>167.2847</MassFlux>
         <InletEnthalpy>382235.0</InletEnthalpy>
         <InletQuality>0.7851</InletQuality>
-        <HeatFlux>13057.0</HeatFlux>
-        <Power>378.861912</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>13100000</HeatFlux>
+        <Power>396.144</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>9.75e-05</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>46</TestID>
+        <TestID>51</TestID>
         <ParamName>PARAM13_03</ParamName>
         <TestName>PARAM13_03</TestName>
         <MassFlow>0.07226699</MassFlow>
         <MassFlux>167.2847</MassFlux>
         <InletEnthalpy>382235.0</InletEnthalpy>
         <InletQuality>0.7851</InletQuality>
-        <HeatFlux>18317.0</HeatFlux>
-        <Power>531.4860719999999</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>18300000</HeatFlux>
+        <Power>553.392</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>9.2e-05</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>47</TestID>
+        <TestID>52</TestID>
         <ParamName>PARAM13_04</ParamName>
         <TestName>PARAM13_04</TestName>
         <MassFlow>0.07226699</MassFlow>
         <MassFlux>167.2847</MassFlux>
         <InletEnthalpy>382235.0</InletEnthalpy>
         <InletQuality>0.7851</InletQuality>
-        <HeatFlux>19628.0</HeatFlux>
-        <Power>569.5260480000001</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>19600000</HeatFlux>
+        <Power>592.704</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>9.05e-05</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>48</TestID>
+        <TestID>53</TestID>
         <ParamName>PARAM14_01</ParamName>
         <TestName>PARAM14_01</TestName>
         <MassFlow>0.072264269</MassFlow>
         <MassFlux>167.2784</MassFlux>
         <InletEnthalpy>397367.0</InletEnthalpy>
         <InletQuality>0.8647</InletQuality>
-        <HeatFlux>0.0</HeatFlux>
+        <HeatFlux>0</HeatFlux>
         <Power>0.0</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>9.49e-05</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>49</TestID>
+        <TestID>54</TestID>
         <ParamName>PARAM14_02</ParamName>
         <TestName>PARAM14_02</TestName>
         <MassFlow>0.072264269</MassFlow>
         <MassFlux>167.2784</MassFlux>
         <InletEnthalpy>397367.0</InletEnthalpy>
         <InletQuality>0.8647</InletQuality>
-        <HeatFlux>10385.0</HeatFlux>
-        <Power>301.33116</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>10400000</HeatFlux>
+        <Power>314.496</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>8.69e-05</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>50</TestID>
+        <TestID>55</TestID>
         <ParamName>PARAM14_03</ParamName>
         <TestName>PARAM14_03</TestName>
         <MassFlow>0.072264269</MassFlow>
         <MassFlux>167.2784</MassFlux>
         <InletEnthalpy>397367.0</InletEnthalpy>
         <InletQuality>0.8647</InletQuality>
-        <HeatFlux>13023.0</HeatFlux>
-        <Power>377.875368</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>13000000</HeatFlux>
+        <Power>393.12</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>8.45e-05</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>51</TestID>
+        <TestID>56</TestID>
         <ParamName>PARAM14_04</ParamName>
         <TestName>PARAM14_04</TestName>
         <MassFlow>0.072264269</MassFlow>
         <MassFlux>167.2784</MassFlux>
         <InletEnthalpy>397367.0</InletEnthalpy>
         <InletQuality>0.8647</InletQuality>
-        <HeatFlux>15641.0</HeatFlux>
-        <Power>453.839256</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>15600000</HeatFlux>
+        <Power>471.744</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>8.19e-05</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>52</TestID>
+        <TestID>57</TestID>
         <ParamName>PARAM15_01</ParamName>
         <TestName>PARAM15_01</TestName>
         <MassFlow>0.072256925</MassFlow>
         <MassFlux>167.2614</MassFlux>
         <InletEnthalpy>412728.0</InletEnthalpy>
         <InletQuality>0.9455</InletQuality>
-        <HeatFlux>0.0</HeatFlux>
+        <HeatFlux>0</HeatFlux>
         <Power>0.0</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>8.13e-05</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>53</TestID>
+        <TestID>58</TestID>
         <ParamName>PARAM15_02</ParamName>
         <TestName>PARAM15_02</TestName>
         <MassFlow>0.072256925</MassFlow>
         <MassFlux>167.2614</MassFlux>
         <InletEnthalpy>412728.0</InletEnthalpy>
         <InletQuality>0.9455</InletQuality>
-        <HeatFlux>5062.6</HeatFlux>
-        <Power>146.89640160000002</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>5060000</HeatFlux>
+        <Power>153.0144</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>7.77e-05</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>54</TestID>
+        <TestID>59</TestID>
         <ParamName>PARAM15_03</ParamName>
         <TestName>PARAM15_03</TestName>
         <MassFlow>0.072256925</MassFlow>
         <MassFlux>167.2614</MassFlux>
         <InletEnthalpy>412728.0</InletEnthalpy>
         <InletQuality>0.9455</InletQuality>
-        <HeatFlux>8915.6</HeatFlux>
-        <Power>258.6950496</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>8920000</HeatFlux>
+        <Power>269.7408</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>7.3e-05</MeasuredFilmThickness>
     </dataset>
     <dataset>
-        <TestID>55</TestID>
+        <TestID>60</TestID>
         <ParamName>PARAM15_04</ParamName>
         <TestName>PARAM15_04</TestName>
         <MassFlow>0.072256925</MassFlow>
         <MassFlux>167.2614</MassFlux>
         <InletEnthalpy>412728.0</InletEnthalpy>
         <InletQuality>0.9455</InletQuality>
-        <HeatFlux>12608.0</HeatFlux>
-        <Power>365.833728</Power>
-        <Pressure>150000.0</Pressure>
-        <Length>0.403</Length>
+        <HeatFlux>12600000</HeatFlux>
+        <Power>381.024</Power>
+        <Pressure>148000.0</Pressure>
+        <Length>0.42</Length>
         <Area>0.000432</Area>
-        <Perimeter>0.096</Perimeter>
-        <WallMesh>0.2015</WallMesh>
-        <WallMesh>0.2015</WallMesh>
+        <Perimeter>0.072</Perimeter>
+        <Perimeter>0.024</Perimeter>
+        <WallMesh>0.21</WallMesh>
+        <WallMesh>0.21</WallMesh>
         <WallPower>1</WallPower>
         <WallPower>1</WallPower>
+        <WallPower>0</WallPower>
+        <WallPower>0</WallPower>
         <Fluid>R245fa</Fluid>
         <MeasuredFilmThickness>6.61e-05</MeasuredFilmThickness>
     </dataset>

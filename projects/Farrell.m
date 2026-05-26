@@ -23,17 +23,20 @@ runs = 1:length(TestName);
 % Input models and options
 opts = alldata.inputOptions();                                             % Initilize input options structure
 
-opts.model.OAFENTRAINED  = 'EQUILIBRIUM';                                        % Entrained model at onset of annular flow
-opts.model.OAFDROPRATIO  =  0.1;                                           % Ratio of Drops to film at OAF
+opts.model.OAFENTRAINED  = 'EQUILIBRIUM';                                  % Entrained model at onset of annular flow
+opts.model.OAFDROPRATIO  =  0.00001;                                       % Ratio of Drops to film at OAF
 opts.model.DEPOSITION    = 'OKAWA';                                        % Drop deposition model
-opts.model.ENTRAINMENT   = 'OKAWAMFVAL';                                   % Film entrainment model
-%opts.model.OKAWACOEFS    = [320 0 0.010 2.3 0.0387 0.39];                 % Okawa 2003 model coefficients
-opts.model.BASEQTHICK    = 'MFVAL';                                        % Equilibrium Film Thickness Model
-opts.model.EQSTROUHAL    = 'MFVAL';                                        % Equilibrium Strouhal Number Model
-opts.model.OAFFILMSPLIT  = 'RATIO';                                        % OAF film split
-opts.model.OAFBASERATIO  =  1;                                             % Base film /total film ratio at OAF
-opts.model.MOMENTFILM    = 'EQUILIBRIUMS';                                 % Film momentum conservation model
-
+opts.model.ENTRAINMENT   = 'NONE';                                      % Film entrainment model
+%opts.model.OKAWACOEFS    = [320 0 0.0310 2.3 0.0675 1 0.2950 0.5];
+opts.model.MOMENTFILM    = 'FULL';                                         % Film momentum conservation model
+opts.model.THINFILMFRIC  = 'TRACE';                                        % Thin film wall friction model
+opts.model.THINFILMTHICK = 5E-9;                                           % Minimum Film Thickness
+opts.model.VAPORFRIC = 'SMOOTH';                                      % Interfacial friction factor model
+opts.model.RETRANSITION = 1200;                                            % Transition to turbulence
+opts.model.VAPORFRICCST = 0.005;                                           %Coefficient in vapor friction equation
+opts.model.FWLAM = 16;                                                     %Coefficient in vapor friction equation
+opts.model.OAFTRANSITION = [0.1 -0.1];
+opts.options.RELAXUF = 0.1; 
 
 % 'LOGMODE': NONE, LOGTOCONSOLEONLY, LOGTOFILEONLY, BOTH
 inputSetOpts = {'overwriteSessionFiles', true, 'LOGMODE', 'BOTH'};
@@ -62,8 +65,26 @@ toc
 
 % Convergence checks
 [mixnoconv,filmnoconv] = data.checkConvergence();                          % Check run convergence
+
 % Figures
 data.plotResults(solver)
+
+% Filter and plot only unheated cases
+% Extract Power values (heater power in Watts) from all data entries
+powerValues = arrayfun(@(obj) obj.entryData.Power, data);
+
+% Find indices where Power is 0 (unheated cases)
+unheatedIdx = powerValues == 0;
+
+% Create filtered data array with only unheated cases
+dataUnheated = data(unheatedIdx);
+
+% Plot unheated cases only
+if ~isempty(dataUnheated)
+    dataUnheated.plotResults(solver);
+else
+    disp('No unheated cases found in the dataset.')
+end
 
 return
 
