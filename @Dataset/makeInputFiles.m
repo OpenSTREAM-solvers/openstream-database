@@ -1,4 +1,4 @@
-function makeInputFiles(data, opts)
+function inputFilePath = makeInputFiles(data, opts)
 %MAKEINPUTFILES Create Input Files
 %   Detailed explanation goes here
 
@@ -76,7 +76,9 @@ function makeInputFiles(data, opts)
     optionsOptions = rmfield(optionsOptions,'ID');
     optionsOptions = data.inputOptions2Cell(optionsOptions);
 
-    Inputs.Options.writeInputFile(data.optionsFilePath,data.optionsID,optionsOptions{:});
+    inputFilePath = data.optionsFilePath;
+
+    Inputs.Options.writeInputFile(inputFilePath,data.optionsID,optionsOptions{:});
    
     
     

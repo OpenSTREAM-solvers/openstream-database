@@ -81,21 +81,23 @@ classdef Dataset < handle
 
             % Run the preprocessor to prepare dataset
             try
-                obj.preprocessor();
-            catch
+                if ~obj.isLightWeight
+                    obj.preprocessor();
+                end
+            catch ME
                 disp('No database file was read to create the dataset object')
                 %disp('Inputs must instead be specified using lightWeightEntryData or using the options structure')
             end
 
             % return if entryID == -1
-            if isnumeric(entryID) && entryID == -1
-                return
-            elseif obj.isLightWeight
+            if obj.isLightWeight
                 if isempty(opts.lightWeightEntryData)
                     error('In light weight mode, lightWeightEntryData cannot be empty');
                 end
                 obj.entryID = entryID;
                 obj.setEntryData(opts.lightWeightEntryData);
+            elseif isnumeric(entryID) && entryID == -1
+                return
             else
                 % set the entryID
                 obj.entryID = entryID;   
@@ -104,6 +106,13 @@ classdef Dataset < handle
             % TODO: Otherwise, do something else
             % ...
 
+        end
+
+        function addPath(data)
+        %ADDPATH Add path to database
+        
+            throw(MException('DatasetNotImplementedError:addPathNotImplemented', ...
+                "addPath() is not implemented in the base class"))
         end
         
     end
@@ -211,10 +220,6 @@ classdef Dataset < handle
         %GET.BCFILEPATH Generate boundary conditions input file path
             bcFilePath = fullfile(obj.caseFolderPaths.inputs,'bc.inp');
         end
-
-    end
-
-    methods
         
         function preprocessor(data)
         %PREPROCESSOR Load dataset
@@ -250,7 +255,7 @@ classdef Dataset < handle
             
         end
 
-        makeInputFiles(data)
+        inputFilePath = makeInputFilesmakeInputFiles(data)
         %MAKEINPUTFILES Creates input files on-demand
 
         function entries = listEntries(data)
