@@ -255,7 +255,7 @@ classdef Dataset < handle
             
         end
 
-        inputFilePath = makeInputFilesmakeInputFiles(data)
+        inputFilePath = makeInputFiles(data)
         %MAKEINPUTFILES Creates input files on-demand
 
         function entries = listEntries(data)
@@ -349,7 +349,12 @@ classdef Dataset < handle
             [~,~,geom_struct] = Inputs.Geometry().listInputProperties();
             [~,~,model_struct] = Inputs.Model().listInputProperties();
             [~,~,options_struct] = Inputs.Options().listInputProperties();
-            [~,~,bc_struct] = Inputs.BoundaryConditions().listInputProperties();
+            [bc_opt_names,~,bc_struct] = Inputs.BoundaryConditions().listInputProperties();
+            
+            geom_struct = setPropertyValueToEmpty(geom_struct, ["ID","LENGTH","AREA","PERIM"]);
+            model_struct = setPropertyValueToEmpty(model_struct, ["ID","NNODES","FLUID"]);
+            options_struct = setPropertyValueToEmpty(options_struct, "ID");
+            bc_struct = setPropertyValueToEmpty(bc_struct, bc_opt_names.');
 
             options = struct( ...
                         'geometry', geom_struct, ...
@@ -357,6 +362,12 @@ classdef Dataset < handle
                         'options', options_struct, ...
                         'boundaryConditions', bc_struct ...
                             );
+            function inputStruct = setPropertyValueToEmpty(inputStruct, propertyNames)
+                for propertyName = propertyNames
+                    propertyClass = class(inputStruct.(propertyName));
+                    inputStruct.(propertyName) = eval(string(propertyClass)+".empty");
+                end
+            end
         end
 
         function cellPair = inputOptions2Cell(inputOpts)

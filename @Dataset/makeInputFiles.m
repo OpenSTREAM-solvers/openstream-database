@@ -92,7 +92,7 @@ function inputFilePath = makeInputFiles(data, opts)
         if nargin < 4, pop = false; end
 
         % Insert value
-        if ~isfield(opts, fieldname)
+        if ~isfield(opts, fieldname) || isempty(opts.(fieldname))
             opts.(fieldname) = value; 
         end
 
@@ -102,6 +102,5 @@ function inputFilePath = makeInputFiles(data, opts)
             opts = rmfield(opts, fieldname);
         end
     end
-
 end
 
