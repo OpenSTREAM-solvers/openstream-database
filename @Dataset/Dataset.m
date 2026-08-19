@@ -144,9 +144,9 @@ classdef Dataset < handle
         end
 
         function methodNotImplemented(obj)
-            st = dbstack;
+            st = dbstack();
             throwAsCaller(MException( ...
-                'Dataset:MethodNotImplmentedError', ...
+                'openSTREAM:Dataset:MethodNotImplmentedError', ...
                 '%s is not implemented', st(end).name));
         end
         
@@ -355,34 +355,37 @@ classdef Dataset < handle
                             );
         end
 
-        function cellPair = inputOptions2Cell(inputOpt)
+        function cellPair = inputOptions2Cell(inputOpts)
         %INPUTOPTIONS2CELL Convert struct to name-value pairs in a cell.
         %   Details.
 
-            % List of fields on input
-            optionNames = fieldnames(inputOpt);
-    
-            % Build output cell
-            cellPair = {};
-            for i = 1:length(optionNames)
-                
-                % Option name
-                optionName = optionNames{i};
-    
-                % Ignore if option name is ID
-                %switch optionName
-                %    case 'ID'
-                %        warning('ID (%s) cannot be overwritten.', optionName);
-                %        continue;
-                %end
-    
-                % Insert option name
-                cellPair{end+1} = optionName;
-    
-                % Insert option value
-                cellPair{end+1} = inputOpt.(optionName);
-                
-            end
+            % A built-in function exists for this task
+            cellPair = namedargs2cell(inputOpts);
+
+            % % List of fields on input
+            % optionNames = fieldnames(inputOpts);
+            % 
+            % % Build output cell
+            % cellPair = {};
+            % for i = 1:length(optionNames)
+            % 
+            %     % Option name
+            %     optionName = optionNames{i};
+            % 
+            %     % Ignore if option name is ID
+            %     %switch optionName
+            %     %    case 'ID'
+            %     %        warning('ID (%s) cannot be overwritten.', optionName);
+            %     %        continue;
+            %     %end
+            % 
+            %     % Insert option name
+            %     cellPair{end+1} = optionName;
+            % 
+            %     % Insert option value
+            %     cellPair{end+1} = inputOpts.(optionName);
+            % 
+            % end
 
         end
 
