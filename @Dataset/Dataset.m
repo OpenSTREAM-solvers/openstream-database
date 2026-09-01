@@ -75,7 +75,7 @@ classdef Dataset < handle
             % TODO: Find a more elegant way to do this
             % addpath("../OpenSTREAM");
             % addpath("OpenSTREAM");
-            if strcmp(which('Inputs.Input'), 'Not on MATLAB path')
+            if isempty(which('Inputs.Input'))
                 error('Missing OpenSTREAM on MATLAB Path.');
             end
 
