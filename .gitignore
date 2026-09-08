@@ -1,6 +1,16 @@
-**/*.asv
-**/+inputs/**/*
-**/+results/**/*
-**/outputs/**/*
-sandbox/**/*
+# MATLAB temporary files
+*.asv
+*.m~
+*.autosave
 
+# Generated OpenSTREAM dataset artifacts
++inputs/
++results/
+outputs/
+
+# Local development sandbox
+sandbox/
+
+# Operating-system metadata
+.DS_Store
+Thumbs.db
