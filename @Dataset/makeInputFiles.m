@@ -1,106 +1,189 @@
-function inputFilePath = makeInputFiles(data, opts)
-%MAKEINPUTFILES Create Input Files
-%   Detailed explanation goes here
+function inputFilePaths = makeInputFiles(data,opts)
+% MAKEINPUTFILES Create the OpenSTREAM input files for a dataset case.
+%
+% The method creates the case input and result folders, retrieves the
+% selected dataset entry, applies user-specified input options, and writes
+% the geometry, model, boundary-condition, and numerical-option files.
+%
+% Inputs:
+%
+%   data
+%       Dataset object containing the selected experimental case.
+%
+% Name-value arguments:
+%
+%   geometry
+%       Geometry input options. Unspecified values are obtained from the
+%       selected dataset entry.
+%
+%   model
+%       Physical-model input options. Unspecified values are obtained from
+%       the selected dataset entry or assigned their default values.
+%
+%   options
+%       Numerical-option input values.
+%
+%   boundaryConditions
+%       Boundary-condition input options. Unspecified values are obtained
+%       from the selected dataset entry.
+%
+% Output:
+%
+%   inputFilePaths
+%       Structure containing the generated model, options, geometry, and
+%       boundary-condition file paths.
 
-    arguments
-        data
-        opts = data.inputOptions()
-    end
-  
-    % Make caseFolder
-    data.makeCaseFolder(['+' data.name]);
-    
-    % Retrieve entry
-    entry = data.entryData;
-    % TODO: check entry size, error if more than 1 is found
-    % ...
-    
-    % Geometry file
-    geomOptions = opts.geometry;
-    geomOptions = setDefaultOpt(geomOptions, 'ID'    , upper(data.name));
-    geomOptions = setDefaultOpt(geomOptions, 'LENGTH', entry.Length);
-    geomOptions = setDefaultOpt(geomOptions, 'AREA'  , entry.Area);
-    geomOptions = setDefaultOpt(geomOptions, 'PERIM' , entry.Perimeter);
-    data.geometryID = geomOptions.ID;
-    geomOptions = rmfield(geomOptions,'ID');
-    geomOptions = data.inputOptions2Cell(geomOptions);
-    
-    Inputs.Geometry.writeInputFile(data.geometryFilePath,data.geometryID,geomOptions{:});
-    
-    % Model file
-    modelOptions = opts.model;
-    modelOptions = setDefaultOpt(modelOptions, 'ID'    , 'DEFAULT');
-    modelOptions = setDefaultOpt(modelOptions, 'NNODES', 100);
-    modelOptions = setDefaultOpt(modelOptions, 'FLUID' , entry.Fluid);
-    data.modelID = modelOptions.ID;
-    modelOptions = rmfield(modelOptions,'ID');
-    modelOptions = data.inputOptions2Cell(modelOptions);
-    
-    Inputs.Model.writeInputFile(data.modelFilePath,data.modelID,modelOptions{:});
+arguments
+    data
+    opts = data.inputOptions()
+end
 
-    % Boundary conditions file
-    bcOptions = opts.boundaryConditions;
-    [bcOptions, TIME    ] = setDefaultOpt(bcOptions, 'TIME'    , 0, true);
-    [bcOptions, PRESSURE] = setDefaultOpt(bcOptions, 'PRESSURE', entry.Pressure, true);
-    [bcOptions, HIN     ] = setDefaultOpt(bcOptions, 'HIN'     , entry.InletEnthalpy, true);
-    [bcOptions, MFLOW   ] = setDefaultOpt(bcOptions, 'MFLOW'   , entry.MassFlow, true);
-    bcOptions = setDefaultOpt(bcOptions, 'POWER'   , entry.Power);
-    bcOptions = setDefaultOpt(bcOptions, 'WMESH'   , entry.WallMesh);
-    bcOptions = setDefaultOpt(bcOptions, 'WPOWER'  , entry.WallPower);
-    bcOptions = data.inputOptions2Cell(bcOptions);
+% Create the generated input and result folders.
+packageFolder = data.getPackageFolder();
+data.makeCaseFolder(packageFolder);
 
-    Inputs.BoundaryConditions.writeInputFile(data.bcFilePath,TIME,PRESSURE,HIN,MFLOW,bcOptions{:});
-    
-    % Transient boundary conditions (if any)
-    if ismember('Transient',entry.Properties.VariableNames)
-        inparam  = {'Pressure','InletEnthalpy','MassFlow','Power','WallMesh','WallPower'};
-        outparam = {'PRESSURE','HIN'          ,'MFLOW'   ,'POWER','WMESH'   ,'WPOWER'};
-        idx = ismember({'Pressure','InletEnthalpy','MassFlow','Power','WallMesh','WallPower'},fieldnames(entry.Transient));
-        
-        time = [entry.Transient.Time];
-        for k = 1:length(time)
-            for j = find(idx(1:3))
-                eval([outparam{j} ' = entry.Transient(' num2str(k) ').' inparam{j} ';'])
+% Retrieve and validate the selected dataset entry.
+entry = data.entryData;
+data.validateMandatoryFields(entry);
+
+% Write the geometry input file.
+geomOptions = opts.geometry;
+geomOptions = setDefaultOpt(geomOptions,'ID',upper(data.name));
+geomOptions = setDefaultOpt(geomOptions,'LENGTH',entry.Length);
+geomOptions = setDefaultOpt(geomOptions,'AREA',entry.Area);
+geomOptions = setDefaultOpt(geomOptions,'PERIM',entry.Perimeter);
+data.geometryID = geomOptions.ID;
+geomOptions = rmfield(geomOptions,'ID');
+geomOptions = data.inputOptions2Cell(geomOptions);
+Inputs.Geometry.writeInputFile(data.geometryFilePath,data.geometryID,geomOptions{:});
+
+% Write the physical-model input file.
+modelOptions = opts.model;
+modelOptions = setDefaultOpt(modelOptions,'ID','DEFAULT');
+modelOptions = setDefaultOpt(modelOptions,'NNODES',100);
+modelOptions = setDefaultOpt(modelOptions,'FLUID',entry.Fluid);
+data.modelID = modelOptions.ID;
+modelOptions = rmfield(modelOptions,'ID');
+modelOptions = data.inputOptions2Cell(modelOptions);
+Inputs.Model.writeInputFile(data.modelFilePath,data.modelID,modelOptions{:});
+
+% Define the initial boundary-condition state.
+bcOptions = opts.boundaryConditions;
+[bcOptions,TIME]     = setDefaultOpt(bcOptions,'TIME',0,true);
+[bcOptions,PRESSURE] = setDefaultOpt(bcOptions,'PRESSURE',entry.Pressure,true);
+[bcOptions,HIN]      = setDefaultOpt(bcOptions,'HIN',entry.InletEnthalpy,true);
+[bcOptions,MFLOW]    = setDefaultOpt(bcOptions,'MFLOW',entry.MassFlow,true);
+bcOptions = setDefaultOpt(bcOptions,'POWER',entry.Power);
+bcOptions = setDefaultOpt(bcOptions,'WMESH',entry.WallMesh);
+bcOptions = setDefaultOpt(bcOptions,'WPOWER',entry.WallPower);
+
+% Retain the initial state as the default for transient entries.
+initialPressure = PRESSURE;
+initialInletEnthalpy = HIN;
+initialMassFlow = MFLOW;
+initialBcOptions = bcOptions;
+
+% Write the initial boundary-condition state.
+initialBcNameValuePairs = data.inputOptions2Cell(initialBcOptions);
+Inputs.BoundaryConditions.writeInputFile( ...
+    data.bcFilePath, ...
+    TIME, ...
+    initialPressure, ...
+    initialInletEnthalpy, ...
+    initialMassFlow, ...
+    initialBcNameValuePairs{:});
+
+% Append transient boundary-condition states when available.
+if ismember('Transient',entry.Properties.VariableNames)
+    transientStates = entry.Transient;
+    if ~isempty(transientStates)
+        for transientIndex = 1:numel(transientStates)
+            transientState = transientStates(transientIndex);
+
+            % Every transient state must define its physical time.
+            if ~isfield(transientState,'Time')
+                error( ...
+                    'OpenSTREAMDatabase:MissingTransientTime', ...
+                    ['Transient boundary-condition state %d does not ' ...
+                    'define the mandatory Time field.'], ...
+                    transientIndex);
             end
-            for j = find(idx(4:6))
-                bcOptions{2*j} = entry.Transient(k).(inparam{j+3});
+            transientTime = transientState.Time;
+
+            % Start from the initial boundary-condition state.
+            transientPressure = initialPressure;
+            transientInletEnthalpy = initialInletEnthalpy;
+            transientMassFlow = initialMassFlow;
+            transientBcOptions = initialBcOptions;
+
+            % Override scalar inlet conditions when supplied.
+            if isfield(transientState,'Pressure')
+                transientPressure = transientState.Pressure;
             end
-            Inputs.BoundaryConditions.writeInputFile(data.bcFilePath,time(k),PRESSURE,HIN,MFLOW,bcOptions{:});
-        end
-    end
+            if isfield(transientState,'InletEnthalpy')
+                transientInletEnthalpy = transientState.InletEnthalpy;
+            end
+            if isfield(transientState,'MassFlow')
+                transientMassFlow = transientState.MassFlow;
+            end
 
-    % Options file
-    optionsOptions = opts.options;
-    optionsOptions = setDefaultOpt(optionsOptions, 'ID'    , 'DEFAULT');
-    data.optionsID = optionsOptions.ID;
-    optionsOptions = rmfield(optionsOptions,'ID');
-    optionsOptions = data.inputOptions2Cell(optionsOptions);
+            % Override distributed heating conditions when supplied.
+            if isfield(transientState,'Power')
+                transientBcOptions.POWER = transientState.Power;
+            end
+            if isfield(transientState,'WallMesh')
+                transientBcOptions.WMESH = transientState.WallMesh;
+            end
+            if isfield(transientState,'WallPower')
+                transientBcOptions.WPOWER = transientState.WallPower;
+            end
 
-    inputFilePath = data.optionsFilePath;
-
-    Inputs.Options.writeInputFile(inputFilePath,data.optionsID,optionsOptions{:});
-   
-    
-    
-    
-    %% HELPER FUNCTIONS
-
-    function [opts, element] = setDefaultOpt(opts, fieldname, value, pop)
-    % Insert value to fieldname of opts if unset; pops value if specified
-
-        % Default no pop
-        if nargin < 4, pop = false; end
-
-        % Insert value
-        if ~isfield(opts, fieldname) || isempty(opts.(fieldname))
-            opts.(fieldname) = value; 
-        end
-
-        % Pop element
-        if pop
-            element = opts.(fieldname);
-            opts = rmfield(opts, fieldname);
+            % Write the completed transient boundary-condition state.
+            transientBcNameValuePairs = ...
+                data.inputOptions2Cell(transientBcOptions);
+            Inputs.BoundaryConditions.writeInputFile( ...
+                data.bcFilePath, ...
+                transientTime, ...
+                transientPressure, ...
+                transientInletEnthalpy, ...
+                transientMassFlow, ...
+                transientBcNameValuePairs{:});
         end
     end
 end
 
+% Write the numerical-option input file.
+optionsOptions = opts.options;
+optionsOptions = setDefaultOpt(optionsOptions,'ID','DEFAULT');
+data.optionsID = optionsOptions.ID;
+optionsOptions = rmfield(optionsOptions,'ID');
+optionsOptions = data.inputOptions2Cell(optionsOptions);
+Inputs.Options.writeInputFile( ...
+    data.optionsFilePath,data.optionsID,optionsOptions{:});
+
+% Return the generated input-file paths.
+inputFilePaths = struct( ...
+    model = data.modelFilePath, ...
+    options = data.optionsFilePath, ...
+    geometry = data.geometryFilePath, ...
+    boundaryConditions = data.bcFilePath);
+
+%% Helper function
+function [options,value] = setDefaultOpt( ...
+        options,fieldName,defaultValue,pop)
+% SETDEFAULTOPT Assign a default option and optionally remove it.
+
+if nargin < 4
+    pop = false;
+end
+if ~isfield(options,fieldName) || isempty(options.(fieldName))
+    options.(fieldName) = defaultValue;
+end
+if pop
+    value = options.(fieldName);
+    options = rmfield(options,fieldName);
+end
+
+end
+
+end
