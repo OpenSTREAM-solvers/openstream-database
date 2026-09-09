@@ -1,20 +1,19 @@
 classdef Wurtz1978 < Dataset
-    %WURTZ1978
-    
-    
+    % WURTZ1978 Dataset implementation for Würtz (1978).
+    %
+    % The class defines the Wurtz1978 package name and source-data file.
+    % Dataset loading, case selection, input generation, solver execution,
+    % and result storage are inherited from the generic Dataset class.
+
     methods
-        
+
         function addPath(data)
-        %ADDPATH Add path to database
-        
-            data.name = 'Wurtz1978';                                       % Name of package
-            data.path = ['+' data.name '/+src/Wurtz1978.xml'];             % Path to data file
-            %data.path = ['+' data.name '/+src/Wurtz1978HL.xml'];           % Path to data file
+            % ADDPATH Define the dataset name and source-data file.
+
+            data.name = 'Wurtz1978';
+            data.path = data.getSourceFilePath('Wurtz1978.xml');
         end
-        
-        plotResults(data, solver, param, tunit,keep)
-        %PLOTRESULTS
-        
+
     end
-    
+
 end
