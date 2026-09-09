@@ -1,6 +1,9 @@
 function plotResults(data, name, param)
-%PLOTRESULTS Summary of this function goes here
-%   Detailed explanation goes here
+% PLOTRESULTS Compare calculated and measured film-flow quantities.
+%
+% The method plots calculated vapor, liquid-film, and droplet mass flow
+% rates together with measured film-flow data. It can also plot the axial
+% heat-flux distribution and equilibrium quality.
 
 arguments
     data
@@ -22,7 +25,7 @@ for i = 1:length(data)
     switch lower(param)
         
         case 'film'
-            nexttile; hold all; grid on; title(strrep(entry.TestName,'_',' '));
+            nexttile; hold on; grid on; title(strrep(entry.TestName,'_',' '));
             plot(z(afidx),mix.vapor.W(afidx),'.-','displayName','Vapor')
             plot(z(afidx),film.W(afidx),'.-','displayName','Film (pred.)')
             plot(z(afidx),drop.W(afidx),'.-','displayName','Drop (pred.)')
@@ -32,12 +35,12 @@ for i = 1:length(data)
             plot(entry.Elevation,dropFlow,'ko','displayName','Drop (meas.)')
             
             xlabel('Elevation [m]'); xlim([0 4]);
-            ylabel('Mass flow rate [kg/s] [m]');
+            ylabel('Mass flow rate [kg/s]');
             legend('show','location','northWest')
             set(gca,'fontSize',14)
             
         case 'heatflux'
-            nexttile; hold all; grid on; title(strrep(entry.TestName,'_',' '));
+            nexttile; hold on; grid on; title(strrep(entry.TestName,'_',' '));
             yyaxis left
             plot(z,mix.HFLUX./1E3,'.-')
             ylabel('Heat flux [kW/m^2]'); ylim([200 1800]);
