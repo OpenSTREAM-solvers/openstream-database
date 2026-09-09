@@ -57,7 +57,7 @@ if any(ismember({'temperature','wallheattransfercoef','quality','film'},lower(pa
         
         if any([~keep,i == 1]), ax(i) = nexttile; end
         if ~keep, title(['Test: ' num2str(entry.TestName) ' - ID: ' num2str(entry.TestID) ' - Power = ' num2str(entry.Power/1E3,'%.0f') ' [kW]']); end
-        hold on; grid on; 
+        hold on; grid on;
         
         switch lower(solver)
             

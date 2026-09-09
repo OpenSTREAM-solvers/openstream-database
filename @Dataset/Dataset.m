@@ -342,7 +342,7 @@ classdef Dataset < handle
 
             % Define and read the dataset-specific source-data file.
             data.addPath();
-            
+
             if data.isLightWeight
                 return
             end

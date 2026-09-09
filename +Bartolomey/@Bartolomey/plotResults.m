@@ -13,13 +13,13 @@ end
 figure('name',TestName);
 
 for i = 1:length(data)
-    
+
     entry = data(i).entryData;
     z   = data(i).results.Z;
 
     hasQuality = ~isempty(entry.Quality) && ~all(ismissing(entry.Quality));
     hasElevation = ~isempty(entry.Elevation) && ~all(ismissing(entry.Elevation));
-    
+
     if isprop(data(i).results,'mixture')
         mix = data(i).results.mixture;
     elseif isprop(data(i).results,'liquid')
@@ -54,8 +54,7 @@ for i = 1:length(data)
     legend('show','location','northWest')
     set(gca,'fontSize',14)
     linkaxes(ax)
-    
-end
 
 end
 
+end
