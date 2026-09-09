@@ -16,6 +16,7 @@ hold all; grid on;
 p = plot(bc('XOUT'),arrayfun(@(x) x.misc(1).X,data),'.');
 xlabel('Reported outlet quality [-]'); xlim(range.XOUT);
 ylabel('Predicted outlet quality [-]'); ylim(range.XOUT);
+axis([0 1 0 1])
 plot(xlim,xlim,'k--','handleVisibility','off')
 set(gca,'fontSize',14)
 adddatatip(data,p,'Predicted','Reported')
