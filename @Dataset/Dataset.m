@@ -77,10 +77,12 @@ classdef Dataset < handle
                 opts.lightWeightEntryData = {}
             end
 
-            % Mark normal construction rather than MAT-file restoration.
+            % When the constructor is called, set loading from file to
+            % false.
             obj.isLoadingFromFile = false;
 
-            % Store the requested loading mode.
+            % Set isLightWeight variable. If true, the full dataset will
+            % not be read.
             obj.isLightWeight = opts.isLightWeight;
 
             % Verify that OpenSTREAM is available on the MATLAB path.
