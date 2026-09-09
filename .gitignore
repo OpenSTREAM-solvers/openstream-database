@@ -8,8 +8,10 @@
 +results/
 outputs/
 
-# Local development sandbox
-sandbox/
+# Local sandbox content
+/sandbox/*
+!/sandbox/*.md
+!/sandbox/*_default.m
 
 # Operating-system metadata
 .DS_Store
