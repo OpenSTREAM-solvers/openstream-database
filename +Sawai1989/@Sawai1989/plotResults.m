@@ -1,7 +1,10 @@
-function plotResults(data, solver)
-%PLOTRESULTS Summary of this function goes here
-%   Similar to Figure 28 of Le Corre, IJMF 151, 2022.
-%   Detailed explanation goes here
+function plotResults(data,solver)
+% PLOTRESULTS Compare disturbance-wave predictions with measurements.
+%
+% The method compares calculated and measured axial distributions of wave
+% time period and wave velocity for FourField solver results. Axial
+% position is expressed relative to the end of heated length and normalized
+% by the hydraulic diameter.
 
 arguments
     data
@@ -12,8 +15,11 @@ switch lower(solver)
     
     case 'fourfield'
         
-        fig1 = figure('name','Wave time period');
-        fig2 = figure('name','Wave velocity');
+        fig1 = figure('name','Wave time period','Units','normalized', 'Position',[0.20 0.32 0.60 0.42]);
+        tiledlayout(fig1,1,2);
+        fig2 = figure('name','Wave velocity','Units','normalized', 'Position',[0.20 0.32 0.60 0.42]);
+        tiledlayout(fig2,1,2);
+
         lines = {'-','--'};
         markers = {'*','pentagram'};
         
@@ -43,7 +49,7 @@ switch lower(solver)
             j = ceil(i/2); k = 2-rem(i,2);
             
             figure(fig1)
-            ax(j) = nexttile(j); hold all; grid on; title(['x_o_u_t = ' num2str(xout,'%.2f')])
+            ax(j) = nexttile(j); hold(ax(j),'on'); grid(ax(j),'on'); title(['x_o_u_t = ' num2str(xout,'%.2f')])
             plot(z(oaf:end),tw(oaf:end).*1E3,['k' lines{k}],'lineWidth',2,'displayName',['Model (' num2str(mflux,'%.0f') ' [kg/m^2/s])'])
             plot(z(oaf:end),twEq(oaf:end).*1E3,['r' lines{k}],'lineWidth',2,'handleVisibility','off')
             plot(zM,twM,['k' markers{k}],'lineWidth',2,'displayName',['Data (' num2str(mflux,'%.0f') ' [kg/m^2/s])'])
@@ -54,7 +60,7 @@ switch lower(solver)
             legend('show','location','northWest')
             
             figure(fig2)
-            bx(j) = nexttile(j); hold all; grid on; title(['x_o_u_t = ' num2str(xout,'%.2f')])
+            bx(j) = nexttile(j); hold(bx(j),'on'); grid(bx(j),'on'); title(['x_o_u_t = ' num2str(xout,'%.2f')])
             plot(z(oaf:end),uw(oaf:end),['k' lines{k}],'lineWidth',2,'displayName',['Model (' num2str(mflux,'%.0f') ' [kg/m^2/s])'])
             plot(zM,uwM,['k' markers{k}],'lineWidth',2,'displayName',['Data (' num2str(mflux,'%.0f') ' [kg/m^2/s])'])
             plot([0 0],ylim,'k--','handleVisibility','off')
@@ -62,7 +68,7 @@ switch lower(solver)
             ylabel('Wave velocity [m/s]'); ylim([0 9]);
             plot([0 0],ylim,'k--','handleVisibility','off')
             set(gca,'fontSize',14)
-            legend('show','location','northWest')
+            legend('show','location','northEast')
         end
         %linkaxes(ax)
         ylim([0 9]);linkaxes(bx)
