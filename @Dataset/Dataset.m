@@ -18,7 +18,7 @@ classdef Dataset < handle
     % stores the calculated results.
 
     properties
-        name                                     = 'DEFAULT'
+        name                                     = 'GenericDataset'
         path
         entryID (1,1) double {mustBeInteger}     = -1
         dataset
@@ -107,6 +107,13 @@ classdef Dataset < handle
                 end
                 obj.entryID = entryID;
                 obj.setEntryData(opts.lightWeightEntryData);
+
+                % Set obj.name
+                obj_classname = strsplit(metaclass(obj).Name,'.');
+                obj_classname = obj_classname{end};
+                if obj_classname ~= "Dataset"
+                    obj.name = obj_classname;
+                end
             elseif isnumeric(entryID) && entryID == -1
                 return
             else
@@ -152,6 +159,15 @@ classdef Dataset < handle
             % Obtain the package folder from the enclosing class folder.
             classFolder = fileparts(classFilePath);
             packageFolder = fileparts(classFolder);
+
+            % Append `Generic` to classFilePath if datasetClassName is
+            % `Dataset`
+            if datasetClassName == "Dataset"
+                packageFolder = fullfile(packageFolder, strtrim(data.name));
+                if ~isfolder(packageFolder)
+                    mkdir(packageFolder)
+                end
+            end           
 
             if ~isfolder(packageFolder)
                 error('OpenSTREAMDatabase:DatasetPackageNotFound', ...
@@ -240,14 +256,26 @@ classdef Dataset < handle
             if isnumeric(obj.entryID)
                 id = sprintf('case-%06u',obj.entryID);
             else
+                %TODO: sanitize entryID to be a valid file name
                 id = sprintf('case-%s',obj.entryID);
             end
 
             % Create and clean the input and result folders.
             paths = {'inputs','results'};
+
+            % Check if datasetPath is relative
+            % If relative, use @Dataset root directory as base path.
+            % Otherwise, use the given absolute path.
+            if ~java.io.File(datasetPath).isAbsolute()
+                % Determine @Database root directory
+                datasetFullPath = fullfile(fileparts(fileparts(mfilename('fullpath'))),datasetPath);
+            else
+                datasetFullPath = datasetPath;
+            end
+
             for pathIndex = 1:numel(paths)
                 pathName = paths{pathIndex};
-                caseFolderPaths.(pathName) = fullfile(datasetPath,['+' pathName],id);
+                caseFolderPaths.(pathName) = fullfile(datasetFullPath,sprintf('+%s',pathName),id);
                 [success,message,messageID] = mkdir(caseFolderPaths.(pathName));
                 if ~success
                     throw(MException(messageID, ...
