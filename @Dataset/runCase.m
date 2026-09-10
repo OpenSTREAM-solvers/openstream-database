@@ -8,7 +8,7 @@ function tpsolver = runCase(data,solver,opts)
 % Inputs:
 %
 %   data
-%       Dataset object containing the selected experimental case.
+%       Dataset object containing the selected case.
 %
 %   solver
 %       Solver framework: 'Mixture', 'TwoFluid', 'ThreeField', or
