@@ -17,6 +17,7 @@ end
 
 measuredThickness = arrayfun(@(x) x.entryData.MeasuredFilmThickness, data);
 predictedThickness = arrayfun(@(x) getPredictedFilmThickness(x), data);
+predictedThicknessHH = arrayfun(@(x) extractEndThickness(x.results.film(end).THICKHH, x.results.film), data);
 
 valid = isfinite(measuredThickness) & isfinite(predictedThickness);
 if ~any(valid)
@@ -26,12 +27,16 @@ end
 
 measuredThickness = measuredThickness(valid) .* 1e6;
 predictedThickness = predictedThickness(valid) .* 1e6;
+predictedThicknessHH = predictedThicknessHH .* 1e6;
 plotData = find(valid);
 
 figure('Name','Predicted vs Measured Film Thickness');
 cla;
-p = scatter(measuredThickness, predictedThickness, 50, 'filled', ...
+p1 = scatter(measuredThickness, predictedThickness, 50, ...
     'MarkerFaceColor', [0 0.4470 0.7410]);
+hold on
+p2 = scatter(measuredThickness, predictedThicknessHH, 50, ...
+    'MarkerFaceColor', 'none');
 grid on;
 axis equal;
 
@@ -44,15 +49,12 @@ xlim([0 xmax]);
 ylim([0 xmax]);
 hold on;
 plot([0 xmax], [0 xmax], 'k--', 'LineWidth', 1.2, 'HandleVisibility', 'off');
+legend([p1, p2], {'Three Field Model', 'Henstock and Hanratty'})
 hold off;
 set(gca, 'FontSize', 14);
 
 nPoints = numel(measuredThickness);
 title(sprintf(' Three Field Model Pre Obstruction Film Thickness (N=%d)', nPoints), 'FontSize', 16);
-
-% Add datatips only for plotted entries
-plottedData = data(plotData);
-adddatatip(plottedData, p, 'Measured', 'Predicted');
 
 end
 

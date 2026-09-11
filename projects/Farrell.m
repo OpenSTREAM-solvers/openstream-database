@@ -23,15 +23,15 @@ runs = 1:length(TestName);
 % Input models and options
 opts = alldata.inputOptions();                                             % Initilize input options structure
 
-opts.model.OAFENTRAINED  = 'EQUILIBRIUM';                                  % Entrained model at onset of annular flow
-opts.model.OAFDROPRATIO  =  0.00001;                                       % Ratio of Drops to film at OAF
-opts.model.DEPOSITION    = 'OKAWA';                                        % Drop deposition model
-opts.model.ENTRAINMENT   = 'NONE';                                      % Film entrainment model
+opts.model.OAFENTRAINED  = 'EQUILIBRIUM';                                        % Entrained model at onset of annular flow
+opts.model.OAFDROPRATIO  =  0.001;                                       % Ratio of Drops to film at OAF
+opts.model.DEPOSITION    = 'OKAWA';                                         % Drop deposition model
+opts.model.ENTRAINMENT   = 'OKAWARD';                                         % Film entrainment model
 %opts.model.OKAWACOEFS    = [320 0 0.0310 2.3 0.0675 1 0.2950 0.5];
 opts.model.MOMENTFILM    = 'FULL';                                         % Film momentum conservation model
 opts.model.THINFILMFRIC  = 'TRACE';                                        % Thin film wall friction model
 opts.model.THINFILMTHICK = 5E-9;                                           % Minimum Film Thickness
-opts.model.VAPORFRIC = 'SMOOTH';                                      % Interfacial friction factor model
+opts.model.VAPORFRIC = 'WALLISTHICK';                                      % Interfacial friction factor model
 opts.model.RETRANSITION = 1200;                                            % Transition to turbulence
 opts.model.VAPORFRICCST = 0.005;                                           %Coefficient in vapor friction equation
 opts.model.FWLAM = 16;                                                     %Coefficient in vapor friction equation

@@ -30,6 +30,8 @@ switch solver
         CPR    = arrayfun(@(x) x.misc(end).CPR,data);                      % Iterated CPR value
         POWER0 = arrayfun(@(x) x.misc(1).POWER,data);                      % Non-iterated power value
         POWER  = arrayfun(@(x) x.misc(end).POWER,data);                    % Iterated power value
+        CHF_meas = arrayfun(@(x) x.entryData.HeatFlux,data);               % Non - iterated CHF value 
+        CHF_calc = CHF_meas .* CPR;                                         % Iterated CHF value
         
         figure('name','Histograms & CPR vs MFF'); tiledlayout(2,2)
         nexttile; hold all; grid on;
@@ -51,9 +53,9 @@ switch solver
         adddatatip(data,p,'Min film flow','CPR')
         
         nexttile; hold all; grid on;
-        p = plot(POWER0./1E3,POWER./1E3,'.');
-        xlabel('Measured Critical Power [kW]');
-        ylabel('Predicted Critical Power [kW]');
+        p = plot(CHF_meas./1E3,CHF_calc./1E3,'.');
+        xlabel('Measured CHF [kW/m^2]');
+        ylabel('Predicted CHF [kW/m^2]');
         range = [0 max([xlim ylim])];
         axis([range range]);
         plot(xlim,xlim,'k--','handleVisibility','off')

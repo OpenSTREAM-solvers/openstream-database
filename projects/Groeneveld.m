@@ -11,8 +11,8 @@ clear variables
 solver = 'ThreeField';
 
 % Power iteration settings
-poweriter = false;
-%poweriter = true;
+%poweriter = false;
+poweriter = true;
 WLMax     = 1E-4; 
 maxIter   = 20;
 
@@ -24,7 +24,7 @@ alldata = Groeneveld2019();                                                % Loa
 % Specify data range and apply filter
 range.Pressure        = [6 20].*1E6;                                       % [Pa]
 range.XOUT            = [0.3 1.1];                                         % [-]
-range.MassFlux        = [500 2000];                                        % [kg/m^2/s]
+range.MassFlux        = [0 2000];                                          % [kg/m^2/s]
 range.InletSubcooling = [0 2].*1E6;                                        % [J/kg]
 
 %range.Pressure        = [0 20].*1E6;                                       % [Pa]
@@ -33,8 +33,7 @@ range.InletSubcooling = [0 2].*1E6;                                        % [J/
 %range.InletSubcooling = [-1.3E6 0];                                        % [J/kg]
 
 runs = alldata.filterRuns(range);    
-runs = runs(1:8*4); 
-%runs = runs(randperm(length(runs))); runs = runs(1:100);                  % Select limited amount of runs at random
+runs = runs(randperm(length(runs))); runs = runs(1:500);                  % Select limited amount of runs at random
 %runs = [13197 13198 13199];       % ENTDEPR not near 1 (drop.W = 0)
 %runs = [14759 14787 14960 15010]; % MAXITER = 100
 
@@ -104,13 +103,13 @@ end
 if ~isempty(filmnan)
     fprintf(['\nThree-field solver NaN solution for runs # ' repmat('%d ',1,length(filmnan)) '\n'],runs(filmnan));
 end
-
+%%
 % Figures
-data.plotResults(solver,range)
+%data.plotResults(solver,range)
 
 % Plot runs based on long annular flow lengths
-%idx = arrayfun(@(x) x.misc(end).AFL,data) > 0.75;
-%data(idx).plotResults(solver,range)
+idx = arrayfun(@(x) x.misc(end).AFL,data) > 0.75;
+data(idx).plotResults(solver,range)
 
 
 return
