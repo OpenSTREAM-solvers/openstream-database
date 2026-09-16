@@ -264,11 +264,11 @@ classdef Dataset < handle
             paths = {'inputs','results'};
 
             % Check if datasetPath is relative
-            % If relative, use @Dataset root directory as base path.
+            % If relative, use current working directory as base path.
             % Otherwise, use the given absolute path.
             if ~java.io.File(datasetPath).isAbsolute()
                 % Determine @Database root directory
-                datasetFullPath = fullfile(fileparts(fileparts(mfilename('fullpath'))),datasetPath);
+                datasetFullPath = fullfile(pwd(),datasetPath);
             else
                 datasetFullPath = datasetPath;
             end
