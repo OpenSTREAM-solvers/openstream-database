@@ -163,7 +163,7 @@ classdef Dataset < handle
             % Append `Generic` to classFilePath if datasetClassName is
             % `Dataset`
             if datasetClassName == "Dataset"
-                packageFolder = fullfile(packageFolder, strtrim(data.name));
+                packageFolder = fullfile(pwd(), strtrim(data.name));
                 if ~isfolder(packageFolder)
                     mkdir(packageFolder)
                 end
