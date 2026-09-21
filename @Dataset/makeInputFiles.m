@@ -1,4 +1,4 @@
-function inputFilePaths = makeInputFiles(data,opts)
+function inputFilePaths = makeInputFiles(data, opts)
 % MAKEINPUTFILES Create the OpenSTREAM input files for a dataset case.
 %
 % The method creates the case input and result folders, retrieves the
@@ -12,20 +12,30 @@ function inputFilePaths = makeInputFiles(data,opts)
 %
 % Name-value arguments:
 %
-%   geometry
-%       Geometry input options. Unspecified values are obtained from the
-%       selected dataset entry.
+%   inputOptions
+%       User-specified input options given as a struct with the following
+%       fields:
 %
-%   model
-%       Physical-model input options. Unspecified values are obtained from
-%       the selected dataset entry or assigned their default values.
+%           geometry
+%               Geometry input options. Unspecified values are obtained 
+%               from the selected dataset entry.
 %
-%   options
-%       Numerical-option input values.
+%           model
+%               Physical-model input options. Unspecified values are 
+%               obtained from the selected dataset entry or assigned their 
+%               default values.
 %
-%   boundaryConditions
-%       Boundary-condition input options. Unspecified values are obtained
-%       from the selected dataset entry.
+%           options.inputOptions
+%               Numerical-option input values.
+%
+%           boundaryConditions
+%               Boundary-condition input options. Unspecified values are 
+%               obtained from the selected dataset entry.
+%
+%   ioDirectory
+%       Path of directory to store input and result files. Defaults to the
+%       package directory of the specific implementation of the Dataset
+%       class.
 %
 % Output:
 %
@@ -35,19 +45,19 @@ function inputFilePaths = makeInputFiles(data,opts)
 
 arguments
     data
-    opts = data.inputOptions()
+    opts.inputOptions = data.inputOptions()
+    opts.ioDirectory = data.getPackageFolder()
 end
 
 % Create the generated input and result folders.
-packageFolder = data.getPackageFolder();
-data.makeCaseFolder(packageFolder);
+data.makeCaseFolder(opts.ioDirectory);
 
 % Retrieve and validate the selected dataset entry.
 entry = data.entryData;
 data.validateMandatoryFields(entry);
 
 % Write the geometry input file.
-geomOptions = opts.geometry;
+geomOptions = opts.inputOptions.geometry;
 geomOptions = setDefaultOpt(geomOptions,'ID',upper(data.name));
 geomOptions = setDefaultOpt(geomOptions,'LENGTH',entry.Length);
 geomOptions = setDefaultOpt(geomOptions,'AREA',entry.Area);
@@ -58,7 +68,7 @@ geomOptions = data.inputOptions2Cell(geomOptions);
 Inputs.Geometry.writeInputFile(data.geometryFilePath,data.geometryID,geomOptions{:});
 
 % Write the physical-model input file.
-modelOptions = opts.model;
+modelOptions = opts.inputOptions.model;
 modelOptions = setDefaultOpt(modelOptions,'ID','DEFAULT');
 modelOptions = setDefaultOpt(modelOptions,'NNODES',100);
 modelOptions = setDefaultOpt(modelOptions,'FLUID',entry.Fluid);
@@ -68,7 +78,7 @@ modelOptions = data.inputOptions2Cell(modelOptions);
 Inputs.Model.writeInputFile(data.modelFilePath,data.modelID,modelOptions{:});
 
 % Define the initial boundary-condition state.
-bcOptions = opts.boundaryConditions;
+bcOptions = opts.inputOptions.boundaryConditions;
 [bcOptions,TIME]     = setDefaultOpt(bcOptions,'TIME',0,true);
 [bcOptions,PRESSURE] = setDefaultOpt(bcOptions,'PRESSURE',entry.Pressure,true);
 [bcOptions,HIN]      = setDefaultOpt(bcOptions,'HIN',entry.InletEnthalpy,true);
@@ -153,7 +163,7 @@ if ismember('Transient',entry.Properties.VariableNames)
 end
 
 % Write the numerical-option input file.
-optionsOptions = opts.options;
+optionsOptions = opts.inputOptions.options;
 optionsOptions = setDefaultOpt(optionsOptions,'ID','DEFAULT');
 data.optionsID = optionsOptions.ID;
 optionsOptions = rmfield(optionsOptions,'ID');
