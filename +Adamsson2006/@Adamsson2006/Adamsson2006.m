@@ -1,61 +1,43 @@
 classdef Adamsson2006 < Dataset
+    % ADAMSSON2006 Dataset implementation for Adamsson and Anglart (2006)
+    %
+    % The class defines the Adamsson2006 package name and source-data
+    % file. Dataset loading, case selection, input generation, solver
+    % execution, and result storage are inherited from Dataset.
 
     methods
-
-        preprocessor(adam)
-        %PREPROCESSOR Prepares dataset for further processing
-
-        makeInputFiles(adam)
-        %MAKEINPUTFILES Creates input files on-demand
-
-        runCase(adam, opts)
-        %RUNCASE Run case
-
-        plotResults(adam)
-        %PLOTRESULTS
-
-        function listEntries(adam)
-        %LISTENTRIES Lists all the possible entries
-            
-            % Display dataset
-            adam.dataset
-
-        end
-
-        function entryIDs = listEntryIDs(adam)
-        %LISTENTRYIDS Lists all the possible entry IDs
-
-            % Return dataset.TestID
-            entryIDs = adam.dataset.TestID;
+        
+        function addPath(data)
+        %ADDPATH Define the dataset name and source-data file.
+        
+            data.name = 'Adamsson2006';                                    % Define the MATLAB package name.
+            data.path = data.getSourceFilePath('Adamsson2006.xml');        % Define the absolute source-data file path.
         end
         
-        function validateEntry(adam, entryID)
-        %VALIDATEENTRY Check if an entryID is valid
-        %   Throws error if entryID is invalid
-            if isnumeric(entryID)
-                throw(MException( ...
-                    'InvalidEntryIDError:NonNumericID', ...
-                    '%s is not a valid string.', string(entryID)))
-            elseif ~ismember(entryID, adam.dataset.TestID)
-                throw(MException( ...
-                    'InvalidEntryIDError:IDOutOfBounds', ...
-                    'ID, %s, not found.', entryID));
-            end
+        function postProcessor(data)
+        %POSTPROCESSOR Post-process data and save to misc property
+        
+            results = data.results;
+            mix = results.mixSolver.mixture;
+            film = results.film;
+            drop = results.drop;
+            
+            data.misc.LD       = data.entryData.Length/data.entryData.Diameter;
+            data.misc.POWER    = data.entryData.Power;                     % [W]
+            
+            data.misc.X        = mix.XEQ(end);                             % [-]
+            data.misc.WL       = min(film.WL,[],'includenan');              % [kg/s/m]
+            
+            data.misc.OAFIDX   = mix.OAFIDX;
+            data.misc.AFL      = results.Z(end)-mix.OAFZ;                  % [m]
+            data.misc.ENTDEPR  = -film.MENT(mix.OAFIDX)/drop.MDEP(mix.OAFIDX); % [-]
+            data.misc.E0       = drop.W(mix.OAFIDX)/mix.liquid.W(mix.OAFIDX); % [-]
+            
+            data.misc.MIXCONV  = Dataset.isConvergedState(results.mixSolver.STATE);
+            data.misc.FILMCONV = Dataset.isConvergedState(results.STATE);
+            data.misc.MAXITER  = max(results.filmInit(end).ITR.N);
         end
-
+        
     end
-
-    methods (Access=protected)
-
-       function setEntryData(adam)
-        %SETENTRYDATA Sets the entryData property using entryID
-
-            % Retrieve entry data from dataset table
-            adam.entryData = adam.dataset(strcmp(adam.dataset.TestID,adam.entryID),:);
-
-       end
-
-   end
-
-
+    
 end

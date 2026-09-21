@@ -1,9 +1,0 @@
-{
-  "Adamsson2006.Adamsson2006":{
-    "inputs":
-    [
-      {"name": "entryID", "kind": "ordered", "type":["char","choices=Adamsson2006.Adamsson2006().listEntryIDs().'"]}
-    ]
-  }
-  
-}
