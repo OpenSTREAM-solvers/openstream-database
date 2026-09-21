@@ -250,7 +250,7 @@ classdef Dataset < handle
             % Input:
             %
             %   datasetPath
-            %       Absolute path to the dataset package folder.
+            %       Absolute or relative path to the dataset package folder.
 
             % Define the generated case-folder name.
             if isnumeric(obj.entryID)
@@ -270,7 +270,7 @@ classdef Dataset < handle
                 % Determine @Database root directory
                 datasetFullPath = fullfile(pwd(),datasetPath);
             else
-                datasetFullPath = datasetPath;
+                datasetFullPath = fullfile(datasetPath);
             end
 
             for pathIndex = 1:numel(paths)
