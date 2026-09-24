@@ -12,6 +12,7 @@ function passCheck = checkOpenSTREAMVersion()
 %   Version requirements use pip-style comparison operators, including:
 %       ==    Equal to
 %       !=    Not equal to
+%       ~=    Greater than or equal to but less than next major release
 %       >=    Greater than or equal to
 %       <=    Less than or equal to
 %       >     Greater than
@@ -25,7 +26,7 @@ function passCheck = checkOpenSTREAMVersion()
 %
 %   See also OPENSTREAMVERSION
 
-openstreamVersionRequirement = ">=2026.0";
+openstreamVersionRequirement = "~=2026.0";
 
 passCheck = true;
 if isempty(which('openstreamVersion'))
@@ -38,11 +39,11 @@ end
 
 % openstream version
 [opsver_str, ops_ver_maj, ops_ver_min, ops_ver_update] = openstreamVersion();
-opsver = [ops_ver_maj, ops_ver_min, ops_ver_update];
+opsVer = [ops_ver_maj, ops_ver_min, ops_ver_update];
 
 % Split requirement by comma
 
-pattern = '(?<operator>==|!=|<=|>=|<|>)[ ]*(?<version>\d+(?:\.\d+)*)';
+pattern = '(?<operator>==|!=|<=|~=|>=|<|>)[ ]*(?<version>\d+(?:\.\d+)*)';
 
 reqs = regexp(openstreamVersionRequirement, pattern, 'names');
 
@@ -54,7 +55,7 @@ for k = 1:numel(reqs)
     reqVer = str2double(strsplit(req.version, '.'));
     
     % Compare two versions
-    res = compareVersions(opsver, reqVer);
+    res = compareVersions(opsVer, reqVer);
 
     % Check operator
     switch req.operator
@@ -62,6 +63,11 @@ for k = 1:numel(reqs)
             if res ~= 0, passCheck = false; end
         case "!="
             if res == 0, passCheck = false; end
+        case "~="
+            if res < 0, passCheck = false; end
+            if compareVersions(opsVer, [reqVer(1)+1, 0, 0]) >= 0
+                passCheck = false;
+            end
         case ">="
             if res < 0, passCheck = false; end
         case "<="
