@@ -77,6 +77,9 @@ classdef Dataset < handle
                 opts.lightWeightEntryData = {}
             end
 
+            % Check openstream version
+            Dataset.checkOpenSTREAMVersion();
+
             % When the constructor is called, set loading from file to
             % false.
             obj.isLoadingFromFile = false;
@@ -550,6 +553,8 @@ classdef Dataset < handle
             tf = solverState == Solvers.SolverState.INITIALSTEPCONVERGED || ...
                 solverState == Solvers.SolverState.SOLVEDCONVERGED;
         end
+
+        passCheck = checkOpenSTREAMVersion()
 
     end
 
