@@ -1,5 +1,6 @@
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Documentation](https://github.com/OpenSTREAM-solvers/openstream/actions/workflows/publishDocs.yml/badge.svg)](https://github.com/OpenSTREAM-solvers/openstream/actions/workflows/publishDocs.yml)
+[![Documentation](https://app.readthedocs.org/projects/openstream/badge/?version=stable)](https://openstream.readthedocs.io/en/stable/)
+
 
 # OpenSTREAM-database
 
